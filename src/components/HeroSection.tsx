@@ -188,7 +188,7 @@ export function HeroSection({ t }: HeroSectionProps) {
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">11</span>
-                  <span className="ml-8"><span className="text-[#ff7b72]">return</span> <span className="text-[#a5d6ff]">"🚀 Magic!"</span>;</span>
+                  <span className="ml-8"><span className="text-[#ff7b72]">return</span> <span className="text-[#a5d6ff]">"🚀 Awesome Project!"</span>;</span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">12</span>
