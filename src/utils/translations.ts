@@ -32,7 +32,7 @@ export const translations = {
       projects: 'Proyectos',
       projectsValue: '50+ completados',
       location: 'Ubicación',
-      locationValue: 'España',
+      locationValue: 'Paraguay',
       availability: 'Disponibilidad',
       availabilityStatus: 'Disponible',
     },
@@ -87,7 +87,7 @@ export const translations = {
         title: 'Envíame un mensaje',
         subtitle: 'Completa el formulario y te responderé lo antes posible',
         name: 'Nombre',
-        namePlaceholder: 'Tu nombre completo',
+        namePlaceholder: 'Denilson Arguello',
         email: 'Email',
         emailPlaceholder: 'tu@email.com',
         subject: 'Asunto',
@@ -117,7 +117,7 @@ export const translations = {
     },
     footer: {
       rights: 'Desarrollador Web Full Stack. Todos los derechos reservados.',
-      madeWith: 'Hecho con ❤️ y mucho código',
+      madeWith: 'Gracias por el apoyo ❤️',
     },
   },
   en: {

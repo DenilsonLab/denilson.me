@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { ImageWithFallback } from "./common/ImageWithFallback";
 import { motion } from "motion/react";
 import { translations } from "../utils/translations";
+import ProfilePicture from '../assets/profile.jpg';
 
 interface BlogSectionProps {
   t: typeof translations.es;

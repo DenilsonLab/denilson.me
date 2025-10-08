@@ -156,7 +156,7 @@ export function HeroSection({ t }: HeroSectionProps) {
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">3</span>
-                  <span className="ml-4"><span className="text-[#ff7b72]">public</span> <span className="text-[#ffa657]">$name</span> = <span className="text-[#a5d6ff]">"Tu Nombre"</span>;</span>
+                  <span className="ml-4"><span className="text-[#ff7b72]">public</span> <span className="text-[#ffa657]">$name</span> = <span className="text-[#a5d6ff]">"Denilson Arguello"</span>;</span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">4</span>

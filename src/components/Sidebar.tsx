@@ -5,6 +5,7 @@ import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { motion } from "motion/react";
 import { Language, translations } from "../utils/translations";
+import ProfilePicture from '../assets/profile.png';
 
 interface SidebarProps {
   activeSection: string;
@@ -53,12 +54,12 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
         >
           <div className="relative inline-block">
             <Avatar className="w-28 h-28 border-4 border-[#21262d] shadow-xl ring-2 ring-[#238636]">
-              <AvatarImage src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400" />
+              <AvatarImage src={ProfilePicture} />
               <AvatarFallback className="bg-[#161b22] text-gray-300">DW</AvatarFallback>
             </Avatar>
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+             
+            
               className="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-r from-[#238636] to-[#1f6feb] rounded-full flex items-center justify-center shadow-lg"
             >
               <Terminal className="w-5 h-5 text-white" />
@@ -67,7 +68,7 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
           
           <div className="space-y-1">
             <h2 className="text-xl text-gray-100">
-              Tu Nombre
+              Denilson Arguello
             </h2>
             <p className="text-sm text-gray-400">Full Stack Developer</p>
             <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
