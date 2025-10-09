@@ -1,7 +1,7 @@
 import { ArrowRight, Star, GitFork, Code2, Sparkles, Rocket, Cpu, Database, Cloud } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { translations } from "../utils/translations";
 
 interface HeroSectionProps {

@@ -1,7 +1,7 @@
 import { Badge } from "./ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Progress } from "./ui/progress";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Brain, Sparkles, Zap, TrendingUp, Star } from "lucide-react";
 import { translations } from "../utils/translations";
 

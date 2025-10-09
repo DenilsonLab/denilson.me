@@ -2,7 +2,7 @@ import { Star, GitFork, ExternalLink, Brain, Sparkles, TrendingUp, Eye, Award } 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { translations } from "../utils/translations";
 import { ImageWithFallback } from "./common/ImageWithFallback";
 

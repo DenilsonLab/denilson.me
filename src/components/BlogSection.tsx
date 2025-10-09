@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./common/ImageWithFallback";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { translations } from "../utils/translations";
 import ProfilePicture from '../assets/profile.jpg';
 

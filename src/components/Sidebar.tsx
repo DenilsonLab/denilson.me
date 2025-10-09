@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Language, translations } from "../utils/translations";
 import ProfilePicture from '../assets/profile.png';
 

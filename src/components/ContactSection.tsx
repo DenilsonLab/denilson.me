@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { translations } from "../utils/translations";
 
 interface ContactSectionProps {

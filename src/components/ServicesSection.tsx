@@ -1,6 +1,6 @@
 import { Palette, Code, Wrench, Server, Layers, Zap, Shield, Rocket } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { translations } from "../utils/translations";
 
 interface ServicesSectionProps {
