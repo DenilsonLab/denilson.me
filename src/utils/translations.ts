@@ -236,7 +236,7 @@ export const translations = {
     },
     footer: {
       rights: 'Full Stack Web Developer. All rights reserved.',
-      madeWith: 'Made with ❤️ and lots of code',
+      madeWith: 'Made with ❤️',
     },
   },
 };
