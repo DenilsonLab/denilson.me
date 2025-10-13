@@ -1,10 +1,6 @@
 {
-  "installCommand": "npm install --legacy-peer-deps",
-  "buildCommand": "npm install --legacy-peer-deps && npm run build",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node"
-    }
-  ]
+  "installCommand": "npm ci || npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
+  "framework": "vite",
+  "outputDirectory": "dist"
 }
