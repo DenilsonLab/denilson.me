@@ -1,11 +1,5 @@
 {
   "buildCommand": "npm ci && npm run build",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "routes": [
-    {
-      "src": "/zohoverify/verifyforzoho.html",
-      "dest": "/zoho-domain-verification.html"
-    }
-  ]
+  "framework": "vite"
 }
