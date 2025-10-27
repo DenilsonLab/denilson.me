@@ -142,7 +142,7 @@ export function ProjectsSection({ t }: ProjectsSectionProps) {
         >
           <div className="inline-flex items-center gap-2 bg-[#161b22] border border-[#21262d] rounded-full px-4 py-2 mb-4">
             <Sparkles className="w-4 h-4 text-[#58a6ff]" />
-            <span className="text-sm text-gray-400">Proyectos destacados con IA integrada</span>
+            <span className="text-sm text-gray-400">Proyectos destacados y en desarrollo</span>
           </div>
           <h2 className="text-gray-100">
             {t.projects.title}

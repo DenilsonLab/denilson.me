@@ -1,4 +1,4 @@
-import { Mail, MessageSquare, Send, MapPin, Phone, Clock, Zap } from "lucide-react";
+import { Mail, MessageSquare, Send, MapPin, MessageCircle, Clock, Zap } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -127,7 +127,7 @@ export function ContactSection({ t }: ContactSectionProps) {
                     </div>
                     <div>
                       <h3 className="text-gray-100">{t.contact.info.email}</h3>
-                      <p className="text-gray-400">tu@email.com</p>
+                      <p className="text-gray-400">hello@denilson.me</p>
                     </div>
                   </motion.div>
 
@@ -136,11 +136,11 @@ export function ContactSection({ t }: ContactSectionProps) {
                     className="flex items-start gap-4"
                   >
                     <div className="w-12 h-12 bg-[#1f6feb]/10 border border-[#1f6feb]/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-[#58a6ff]" />
+                      <MessageCircle  className="w-6 h-6 text-[#58a6ff]" />
                     </div>
                     <div>
-                      <h3 className="text-gray-100">{t.contact.info.phone}</h3>
-                      <p className="text-gray-400">+34 XXX XXX XXX</p>
+                      <h3 className="text-gray-100">{t.contact.info.discord}</h3>
+                      <p className="text-gray-400"><a href="https://discord.com/users/711334090246324324" target="_blank">@denils.n</a></p>
                     </div>
                   </motion.div>
 

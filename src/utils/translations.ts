@@ -13,7 +13,7 @@ export const translations = {
     hero: {
       available: 'Disponible para nuevos proyectos',
       title: 'Desarrollador Web',
-      titleHighlight: 'Full Stack',
+      titleHighlight: 'Wordpress',
       description: 'Especializado en',
       descriptionEnd: 'Creo soluciones web modernas, escalables y eficientes.',
       viewProjects: 'Ver Proyectos',
@@ -30,7 +30,7 @@ export const translations = {
       experience: 'Experiencia',
       experienceValue: '5+ años',
       projects: 'Proyectos',
-      projectsValue: '50+ completados',
+      projectsValue: '27+ completados',
       location: 'Ubicación',
       locationValue: 'Paraguay',
       availability: 'Disponibilidad',
@@ -41,15 +41,15 @@ export const translations = {
       subtitle: 'Soluciones completas para tus necesidades digitales',
       design: {
         title: 'Diseño Web',
-        description: 'Interfaces modernas y responsivas que cautivan a tus usuarios',
+        description: 'Interfaces modernas y adaptable a dispositivos movies que cautivan a tus usuarios',
       },
       development: {
         title: 'Desarrollo',
-        description: 'Código limpio, escalable y optimizado para el rendimiento',
+        description: 'Código limpio, escalable, seguro y optimizado para el rendimiento',
       },
       maintenance: {
         title: 'Mantenimiento',
-        description: 'Soporte continuo y actualizaciones para tu sitio web',
+        description: 'Mantenimiento, soporte continuo y actualizaciones para tu sitio web',
       },
       systems: {
         title: 'Sistemas',
@@ -61,7 +61,7 @@ export const translations = {
       subtitle: 'Experiencia sólida en tecnologías modernas de desarrollo web',
       backend: 'Backend',
       frontend: 'Frontend',
-      cms: 'CMS & Tools',
+      cms: 'CMS & Herramientas',
       ai: 'Inteligencia Artificial',
       technologies: 'Tecnologías y Herramientas',
     },
@@ -89,7 +89,7 @@ export const translations = {
         name: 'Nombre',
         namePlaceholder: 'Denilson Arguello',
         email: 'Email',
-        emailPlaceholder: 'tu@email.com',
+        emailPlaceholder: 'hello.denilson.me',
         subject: 'Asunto',
         subjectPlaceholder: '¿En qué puedo ayudarte?',
         message: 'Mensaje',
@@ -100,7 +100,7 @@ export const translations = {
         title: 'Información de Contacto',
         subtitle: 'Otras formas de ponerte en contacto conmigo',
         email: 'Email',
-        phone: 'Teléfono',
+        discord: 'Discord',
         location: 'Ubicación',
       },
       availability: {
@@ -116,7 +116,7 @@ export const translations = {
       },
     },
     footer: {
-      rights: 'Desarrollador Web Full Stack. Todos los derechos reservados.',
+      rights: 'denilson.me. Todos los derechos reservados.',
       madeWith: 'Gracias por el apoyo ❤️',
     },
   },

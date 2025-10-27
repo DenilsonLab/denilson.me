@@ -95,15 +95,15 @@ export function HeroSection({ t }: HeroSectionProps) {
                 className="flex items-center gap-2 text-gray-400 hover:text-gray-200 transition-colors"
               >
                 <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-                <span>50+ {t.hero.stats.projects}</span>
+                <span>27+ {t.hero.stats.projects}</span>
               </motion.div>
-              <motion.div
+              {/* <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="flex items-center gap-2 text-gray-400 hover:text-gray-200 transition-colors"
               >
                 <GitFork className="w-5 h-5 text-[#58a6ff]" />
                 <span>100+ {t.hero.stats.commits}</span>
-              </motion.div>
+              </motion.div> */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="flex items-center gap-2 text-gray-400 hover:text-gray-200 transition-colors"
@@ -164,15 +164,15 @@ export function HeroSection({ t }: HeroSectionProps) {
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">5</span>
-                  <span className="ml-8"><span className="text-[#a5d6ff]">"PHP"</span>, <span className="text-[#a5d6ff]">"WordPress"</span>,</span>
+                  <span className="ml-8"><span className="text-[#a5d6ff]">"PHP"</span>, <span className="text-[#a5d6ff]">"WordPress"</span>, <span className="text-[#a5d6ff]">Plugin Development</span> </span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">6</span>
-                  <span className="ml-8"><span className="text-[#a5d6ff]">"JavaScript"</span>, <span className="text-[#a5d6ff]">"React"</span>,</span>
+                  <span className="ml-8"><span className="text-[#a5d6ff]">"JavaScript"</span>, <span className="text-[#a5d6ff]">"React"</span>, <span className="text-[#a5d6ff]">"Node.js"</span></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">7</span>
-                  <span className="ml-8"><span className="text-[#a5d6ff]">"Node.js"</span>, <span className="text-[#a5d6ff]">"AI"</span></span>
+                  <span className="ml-8"><span className="text-[#a5d6ff]">"AI Powered"</span>, <span className="text-[#a5d6ff]">"Database"</span>, <span className="text-[#a5d6ff]">"UI/UX"</span></span>
                 </div>
                 <div className="flex gap-3">
                   <span className="text-gray-600">8</span>

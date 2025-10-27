@@ -20,7 +20,7 @@ export function SkillsSection({ t }: SkillsSectionProps) {
       skills: [
         { name: "PHP", level: 95, color: "bg-[#8957e5]" },
         { name: "Node.js", level: 88, color: "bg-[#3fb950]" },
-        { name: "Bases de Datos (MySQL, MongoDB)", level: 90, color: "bg-[#1f6feb]" },
+        { name: "Bases de Datos (MySQL, Postgress, MongoDB)", level: 90, color: "bg-[#1f6feb]" },
       ],
     },
     {
@@ -44,39 +44,18 @@ export function SkillsSection({ t }: SkillsSectionProps) {
       skills: [
         { name: "WordPress", level: 93, color: "bg-[#1f6feb]" },
         { name: "Plugin Development", level: 88, color: "bg-[#8957e5]" },
-        { name: "Git & DevOps", level: 85, color: "bg-[#ff7b72]" },
+        { name: "AI Integration", level: 80, color: "bg-[#ff7b72]" },
       ],
     },
   ];
 
-  const aiSkills = {
-    category: t.skills.ai,
-    icon: "🤖",
-    color: "text-[#58a6ff]",
-    bgColor: "bg-gradient-to-br from-[#1f6feb]/20 to-[#8957e5]/20",
-    borderColor: "border-[#1f6feb]",
-    skills: [
-      { name: "ChatGPT API Integration", level: 90, color: "bg-[#3fb950]", icon: Brain },
-      { name: "AI Content Generation", level: 85, color: "bg-[#58a6ff]", icon: Sparkles },
-      { name: "Machine Learning Models", level: 80, color: "bg-[#8957e5]", icon: Zap },
-      { name: "Natural Language Processing", level: 82, color: "bg-[#d2a8ff]", icon: TrendingUp },
-    ],
-  };
 
   const technologies = [
     "PHP", "WordPress", "JavaScript", "React", "Node.js", "Express",
-    "MySQL", "MongoDB", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap",
-    "Git", "REST APIs", "jQuery", "AJAX", "JSON", "npm", "Docker", "AWS"
+    "MySQL", "MongoDB", "Postgress SQL", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap",
+    "Git", "REST APIs", "jQuery"
   ];
 
-  const aiProjects = [
-    "GPT-4 Integration",
-    "AI Chatbots",
-    "Content Automation",
-    "Image Recognition",
-    "Sentiment Analysis",
-    "Predictive Analytics",
-  ];
 
   return (
     <section id="habilidades" className="py-20 px-8 bg-[#0d1117]">
@@ -96,106 +75,6 @@ export function SkillsSection({ t }: SkillsSectionProps) {
           </p>
         </motion.div>
 
-        {/* AI Skills - Featured Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
-          <Card className={`bg-gradient-to-br from-[#161b22] to-[#0d1117] border-2 ${aiSkills.borderColor} relative overflow-hidden`}>
-            {/* Animated Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1f6feb]/5 to-[#8957e5]/5 opacity-50" />
-            <motion.div
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 180, 360],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -top-20 -right-20 w-40 h-40 bg-[#1f6feb]/10 rounded-full blur-3xl"
-            />
-
-            <CardHeader className="relative">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="text-4xl">
-                    {aiSkills.icon}
-                  </div>
-                  <div>
-                    <CardTitle className={`${aiSkills.color} flex items-center gap-2`}>
-                      <Brain className="w-6 h-6" />
-                      {aiSkills.category}
-                    </CardTitle>
-                    <p className="text-sm text-gray-400 mt-1">Proyectos potenciados con IA y productos con IA</p>
-                  </div>
-                </div>
-                <Badge className="bg-[#1f6feb] text-white border-0 shadow-lg shadow-[#1f6feb]/30">
-                  <Star className="w-3 h-3 mr-1 fill-white" />
-                  Destacado
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6 relative">
-              <div className="grid md:grid-cols-2 gap-6">
-                {aiSkills.skills.map((skill, idx) => {
-                  const Icon = skill.icon;
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="space-y-3 bg-[#0d1117] border border-[#21262d] rounded-lg p-4 hover:border-[#30363d] transition-colors"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-2">
-                          <Icon className="w-4 h-4 text-[#58a6ff]" />
-                          <span className="text-gray-200 text-sm">{skill.name}</span>
-                        </div>
-                        <span className="text-gray-400 text-sm">{skill.level}%</span>
-                      </div>
-                      <Progress value={skill.level} className="h-2" />
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* AI Projects Badge Section */}
-              <div className="bg-[#0d1117] border border-[#21262d] rounded-lg p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="w-4 h-4 text-[#58a6ff]" />
-                  <h4 className="text-sm text-gray-200">Productos y proyectos con IA</h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {aiProjects.map((project, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.05 }}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <Badge
-                        variant="outline"
-                        className="border-[#1f6feb]/30 text-[#58a6ff] hover:bg-[#1f6feb]/10 transition-colors text-xs"
-                      >
-                        <Brain className="w-3 h-3 mr-1" />
-                        {project}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
 
         {/* Traditional Skills */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
