@@ -1,4 +1,4 @@
-import { Home, Briefcase, Code2, FolderGit2, BookOpen, Mail, Download, Github, Linkedin, MessageSquare, Languages, Coffee, Bug, Zap, Terminal, MapPin, Briefcase as BriefcaseIcon, Calendar } from "lucide-react";
+import { Home, Briefcase, Code2, FolderGit2, BookOpen, Mail, Download, Github, Linkedin, MessageSquare, Terminal, MapPin, Briefcase as BriefcaseIcon, Coffee, Bug, Zap } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
@@ -6,6 +6,8 @@ import { Separator } from "./ui/separator";
 import { motion } from "framer-motion";
 import { Language, translations } from "../utils/translations";
 import ProfilePicture from '../assets/profile.png';
+import { useSettings } from "../hooks/useSettings";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface SidebarProps {
   activeSection: string;
@@ -15,7 +17,18 @@ interface SidebarProps {
   t: typeof translations.es;
 }
 
-export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle, t }: SidebarProps) {
+export function Sidebar({
+  activeSection,
+  onNavigate,
+  language,
+  onLanguageToggle,
+  t
+}: SidebarProps) {
+  const { settings } = useSettings();
+  const githubUrl = settings?.social_links?.github || "https://github.com/denilsonpy";
+  const linkedinUrl = settings?.social_links?.linkedin || "https://www.linkedin.com/in/denilson-arguello/";
+  const discordUrl = settings?.social_links?.discord || "https://discord.com/users/711334090246324324";
+
   const menuItems = [
     { id: "inicio", label: t.nav.home, icon: Home },
     { id: "servicios", label: t.nav.services, icon: Briefcase },
@@ -25,26 +38,29 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
     { id: "contacto", label: t.nav.contact, icon: Mail },
   ];
 
-  return (
-    <aside className="w-80 h-screen bg-[#0d1117] border-r border-[#21262d] sticky top-0 overflow-y-auto">
-      <div className="p-6 space-y-6">
-        {/* Language Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex justify-end"
-        >
-          <Button
-            onClick={onLanguageToggle}
-            size="sm"
-            variant="outline"
-            className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-300 hover:text-[#58a6ff]"
-          >
-            <Languages className="w-4 h-4 mr-2" />
-            {language.toUpperCase()}
-          </Button>
-        </motion.div>
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const handleNavigation = (id: string) => {
+    if (id === 'blog') {
+      navigate('/blog');
+      return;
+    }
+
+    if (location.pathname !== '/') {
+      // Navigate to home with hash
+      // The useEffect in App.tsx will handle scrolling to the section
+      navigate(`/#${id}`);
+      return;
+    }
+
+    // We're already on home page, use the scroll function directly
+    onNavigate(id);
+  };
+
+  return (
+    <aside className="w-80 h-screen bg-[#0d1117] border-r border-[#21262d] overflow-y-auto">
+      <div className="p-6 space-y-6">
         {/* Profile Section */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -58,14 +74,14 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
               <AvatarFallback className="bg-[#161b22] text-gray-300">DW</AvatarFallback>
             </Avatar>
             <motion.div
-             
-            
+
+
               className="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-r from-[#238636] to-[#1f6feb] rounded-full flex items-center justify-center shadow-lg"
             >
               <Terminal className="w-5 h-5 text-white" />
             </motion.div>
           </div>
-          
+
           <div className="space-y-1">
             <h2 className="text-xl text-gray-100">
               Denilson Arguello
@@ -105,9 +121,10 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 + index * 0.05 }}
-                onClick={() => onNavigate(item.id)}
+                onClick={() => handleNavigation(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${
-                  activeSection === item.id
+                  (item.id === 'blog' && location.pathname.startsWith('/blog')) ||
+                  (item.id !== 'blog' && activeSection === item.id && location.pathname === '/')
                     ? "bg-[#238636] text-white shadow-md shadow-[#238636]/20"
                     : "hover:bg-[#161b22] text-gray-400 hover:text-gray-200"
                 }`}
@@ -136,19 +153,25 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
           {/* Social Links */}
           <div className="flex gap-2 justify-center">
             <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
-              <Button size="icon" variant="outline" className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-400 hover:text-[#58a6ff] rounded-md h-9 w-9">
-                <Github className="w-4 h-4" />
-              </Button>
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="icon" variant="outline" className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-400 hover:text-[#58a6ff] rounded-md h-9 w-9 cursor-pointer">
+                  <Github className="w-4 h-4" />
+                </Button>
+              </a>
             </motion.div>
             <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
-              <Button size="icon" variant="outline" className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-400 hover:text-[#58a6ff] rounded-md h-9 w-9">
-                <Linkedin className="w-4 h-4" />
-              </Button>
+              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="icon" variant="outline" className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#0A66C2] text-gray-400 hover:text-[#0A66C2] rounded-md h-9 w-9 cursor-pointer">
+                  <Linkedin className="w-4 h-4" />
+                </Button>
+              </a>
             </motion.div>
             <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
-              <Button size="icon" variant="outline" className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-400 hover:text-[#58a6ff] rounded-md h-9 w-9">
-                <MessageSquare className="w-4 h-4" />
-              </Button>
+              <a href={discordUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="icon" variant="outline" className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#5865F2] text-gray-400 hover:text-[#5865F2] rounded-md h-9 w-9 cursor-pointer">
+                  <MessageSquare className="w-4 h-4" />
+                </Button>
+              </a>
             </motion.div>
           </div>
         </motion.div>
@@ -168,7 +191,7 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
               {t.sidebar.cvOnline}
             </h3>
           </div>
-          
+
           {/* Modern Stats Grid */}
           <div className="grid grid-cols-2 gap-3">
             <motion.div
@@ -215,21 +238,21 @@ export function Sidebar({ activeSection, onNavigate, language, onLanguageToggle,
 
           {/* Fun Stats */}
           <div className="flex items-center justify-between pt-2 border-t border-[#21262d]">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.1 }}
               className="flex flex-col items-center gap-1"
             >
               <Coffee className="w-4 h-4 text-[#ffa657]" />
               <span className="text-xs text-gray-500">∞ ☕</span>
             </motion.div>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.1 }}
               className="flex flex-col items-center gap-1"
             >
               <Bug className="w-4 h-4 text-[#3fb950]" />
               <span className="text-xs text-gray-500">0 🐛</span>
             </motion.div>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.1 }}
               className="flex flex-col items-center gap-1"
             >

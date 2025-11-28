@@ -100,6 +100,7 @@ export const translations = {
         title: 'Información de Contacto',
         subtitle: 'Otras formas de ponerte en contacto conmigo',
         email: 'Email',
+        phone: 'Teléfono',
         discord: 'Discord',
         location: 'Ubicación',
       },
@@ -220,6 +221,7 @@ export const translations = {
         subtitle: 'Other ways to get in touch with me',
         email: 'Email',
         phone: 'Phone',
+        discord: 'Discord',
         location: 'Location',
       },
       availability: {

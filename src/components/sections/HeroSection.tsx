@@ -1,8 +1,9 @@
 import { ArrowRight, Star, GitFork, Code2, Sparkles, Rocket, Cpu, Database, Cloud } from "lucide-react";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
-import { translations } from "../utils/translations";
+import { translations } from "../../utils/translations";
+import ProfilePicture from '../../assets/profile.jpg';
 
 interface HeroSectionProps {
   t: typeof translations.es;
@@ -45,7 +46,7 @@ export function HeroSection({ t }: HeroSectionProps) {
                 {t.hero.available}
               </Badge>
             </motion.div>
-            
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -54,7 +55,7 @@ export function HeroSection({ t }: HeroSectionProps) {
             >
               {t.hero.title} <span className="text-[#58a6ff]">{t.hero.titleHighlight}</span>
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -70,16 +71,21 @@ export function HeroSection({ t }: HeroSectionProps) {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-wrap gap-4"
             >
-              <Button className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group">
-                <Rocket className="w-4 h-4 mr-2" />
-                {t.hero.viewProjects}
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              <Button asChild className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer">
+                <a href="#proyectos">
+                  <Rocket className="w-4 h-4 mr-2" />
+                  {t.hero.viewProjects}
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
-              <Button 
-                variant="outline" 
-                className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-300 hover:text-[#58a6ff]"
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-300 hover:text-[#58a6ff] cursor-pointer"
               >
-                {t.hero.contact}
+                <a href="#contacto">
+                  {t.hero.contact}
+                </a>
               </Button>
             </motion.div>
 
@@ -143,7 +149,7 @@ export function HeroSection({ t }: HeroSectionProps) {
                 </div>
                 <span className="text-gray-400 ml-2">developer.php</span>
               </div>
-              
+
               {/* Code Content */}
               <div className="p-6 font-mono text-sm space-y-2">
                 <div className="flex gap-3">

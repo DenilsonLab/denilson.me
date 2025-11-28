@@ -1,0 +1,231 @@
+/* Custom styles for SimpleMDE Markdown Editor - Dark Theme */
+
+/* Editor Container */
+.EasyMDEContainer {
+  background-color: #0d1117 !important;
+}
+
+/* Editor Textarea */
+.EasyMDEContainer .CodeMirror {
+  background-color: #0d1117 !important;
+  color: #e6edf3 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 0.5rem !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  padding: 8px !important;
+}
+
+.CodeMirror-scroll {
+  min-height: 400px !important;
+}
+
+/* Cursor */
+.CodeMirror-cursor {
+  border-left-color: #58a6ff !important;
+}
+
+/* Selection */
+.CodeMirror-selected {
+  background-color: #1f6feb33 !important;
+}
+
+/* Toolbar */
+.editor-toolbar {
+  background-color: #161b22 !important;
+  border: 1px solid #30363d !important;
+  border-bottom: none !important;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+  padding: 8px !important;
+  opacity: 1 !important;
+}
+
+.editor-toolbar::before,
+.editor-toolbar::after {
+  display: none !important;
+}
+
+/* Toolbar Buttons */
+.editor-toolbar button {
+  background-color: transparent !important;
+  color: #8b949e !important;
+  border: none !important;
+  border-radius: 0.375rem !important;
+  padding: 6px 8px !important;
+  margin: 0 2px !important;
+  transition: all 0.2s !important;
+}
+
+.editor-toolbar button:hover {
+  background-color: #30363d !important;
+  color: #e6edf3 !important;
+}
+
+.editor-toolbar button.active {
+  background-color: #1f6feb !important;
+  color: #ffffff !important;
+}
+
+.editor-toolbar i.separator {
+  border-left: 1px solid #30363d !important;
+  border-right: none !important;
+  margin: 0 8px !important;
+}
+
+/* Toolbar Icons */
+.editor-toolbar button i {
+  color: inherit !important;
+}
+
+/* Preview */
+.editor-preview,
+.editor-preview-side {
+  background-color: #0d1117 !important;
+  color: #e6edf3 !important;
+  border: 1px solid #30363d !important;
+  padding: 16px !important;
+}
+
+.editor-preview-side {
+  border-left: 1px solid #30363d !important;
+}
+
+/* Preview Content Styling */
+.editor-preview h1,
+.editor-preview-side h1 {
+  color: #e6edf3 !important;
+  border-bottom: 1px solid #30363d !important;
+  padding-bottom: 8px !important;
+}
+
+.editor-preview h2,
+.editor-preview-side h2 {
+  color: #e6edf3 !important;
+  border-bottom: 1px solid #30363d !important;
+  padding-bottom: 6px !important;
+}
+
+.editor-preview h3,
+.editor-preview h4,
+.editor-preview h5,
+.editor-preview h6,
+.editor-preview-side h3,
+.editor-preview-side h4,
+.editor-preview-side h5,
+.editor-preview-side h6 {
+  color: #e6edf3 !important;
+}
+
+.editor-preview a,
+.editor-preview-side a {
+  color: #58a6ff !important;
+}
+
+.editor-preview code,
+.editor-preview-side code {
+  background-color: #161b22 !important;
+  color: #ff7b72 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+}
+
+.editor-preview pre,
+.editor-preview-side pre {
+  background-color: #161b22 !important;
+  border: 1px solid #30363d !important;
+  padding: 12px !important;
+  border-radius: 6px !important;
+}
+
+.editor-preview pre code,
+.editor-preview-side pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: #e6edf3 !important;
+}
+
+.editor-preview blockquote,
+.editor-preview-side blockquote {
+  border-left: 4px solid #30363d !important;
+  color: #8b949e !important;
+  padding-left: 16px !important;
+}
+
+.editor-preview table,
+.editor-preview-side table {
+  border-collapse: collapse !important;
+  border: 1px solid #30363d !important;
+}
+
+.editor-preview th,
+.editor-preview td,
+.editor-preview-side th,
+.editor-preview-side td {
+  border: 1px solid #30363d !important;
+  padding: 8px 12px !important;
+}
+
+.editor-preview th,
+.editor-preview-side th {
+  background-color: #161b22 !important;
+  font-weight: 600 !important;
+}
+
+/* Fullscreen Mode */
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen,
+.editor-preview-side {
+  background-color: #0d1117 !important;
+  z-index: 9999 !important;
+}
+
+/* Status Bar */
+.editor-statusbar {
+  background-color: #161b22 !important;
+  color: #8b949e !important;
+  border: 1px solid #30363d !important;
+  border-top: none !important;
+  border-radius: 0 0 0.5rem 0.5rem !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+}
+
+/* Scrollbar */
+.CodeMirror-vscrollbar::-webkit-scrollbar,
+.CodeMirror-hscrollbar::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar-track,
+.CodeMirror-hscrollbar::-webkit-scrollbar-track {
+  background: #0d1117 !important;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb,
+.CodeMirror-hscrollbar::-webkit-scrollbar-thumb {
+  background: #30363d !important;
+  border-radius: 4px !important;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover,
+.CodeMirror-hscrollbar::-webkit-scrollbar-thumb:hover {
+  background: #484f58 !important;
+}
+
+/* Line Numbers */
+.CodeMirror-linenumber {
+  color: #6e7681 !important;
+}
+
+/* Active Line */
+.CodeMirror-activeline-background {
+  background-color: #161b2233 !important;
+}
+
+/* Matching Brackets */
+.CodeMirror-matchingbracket {
+  color: #58a6ff !important;
+  background-color: #1f6feb33 !important;
+}

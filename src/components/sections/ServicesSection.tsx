@@ -1,7 +1,7 @@
 import { Palette, Code, Wrench, Server, Layers, Zap, Shield, Rocket } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { motion } from "framer-motion";
-import { translations } from "../utils/translations";
+import { translations } from "../../utils/translations";
 
 interface ServicesSectionProps {
   t: typeof translations.es;
@@ -70,7 +70,7 @@ export function ServicesSection({ t }: ServicesSectionProps) {
             const Icon = service.icon;
             const ExtraIcon1 = service.extraIcons[0];
             const ExtraIcon2 = service.extraIcons[1];
-            
+
             return (
               <motion.div
                 key={index}
