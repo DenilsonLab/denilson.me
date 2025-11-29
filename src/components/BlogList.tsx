@@ -37,9 +37,9 @@ export default function BlogList() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center space-y-6 mb-16 mt-8"
                     >
-                        <div className="inline-flex items-center gap-2 bg-[#161b22] border border-[#21262d] rounded-full px-5 py-2.5 mb-8">
-                            <Tag className="w-4 h-4 text-[#58a6ff]" />
-                            <span className="text-sm text-gray-400">Blog & Tutoriales</span>
+                        <div className="inline-flex items-center gap-2 bg-[#161b22] border border-[#21262d] rounded-full px-5 py-2.5 pl-4 pr-2 mb-8">
+                            <Tag className="w-4 h-4  text-[#58a6ff]" />
+                            <span className="text-sm text-gray-400 ">Blog & Tutoriales</span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-100 mb-4">
                             Explora mis artículos

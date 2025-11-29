@@ -122,7 +122,7 @@ export default function BlogPost() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="text-4xl md:text-[56px] md:leading-[1.1] font-bold text-gray-100 mb-8 tracking-tight"
+                            className="text-4xl md:text-[56px] md:leading-[1.1] font-bold text-gray-100 mb-8 mt-12 tracking-tight"
                         >
                             {post.title}
                         </motion.h1>
@@ -134,10 +134,10 @@ export default function BlogPost() {
                             transition={{ duration: 0.5, delay: 0.2 }}
                             className="flex flex-col md:flex-row md:items-center justify-between gap-6"
                         >
-                            <div className="flex items-center gap-4 p-4 bg-[#161b22]/50 border border-[#30363d] rounded-xl backdrop-blur-sm">
+                            <div className="flex items-center gap-4 pt-4 pb-2 bg-[#161b22]/50 border border-[#30363d] rounded-xl backdrop-blur-sm">
                                 <div className="flex flex-col gap-1">
                                     <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 bg-[#238636] rounded-full animate-pulse" />
+                                        
                                         <span className="font-semibold text-gray-100 text-base">Denilson Arguello</span>
                                         <span className="text-xs text-gray-500 bg-[#161b22] px-2 py-0.5 rounded-full border border-[#30363d]">Autor</span>
                                     </div>
