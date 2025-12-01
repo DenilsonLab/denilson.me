@@ -310,7 +310,7 @@ export default function BlogAdmin() {
                     </DialogHeader>
 
                     <form id="blog-post-form" onSubmit={handleSubmit} className="flex-1 overflow-y-auto ">
-                        <div className="grid-admin-layout p-6 ">
+                        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 p-6 items-start">
 
                             {/* Left Column: Content Editor */}
                             <div className="flex flex-col min-h-[500px]">

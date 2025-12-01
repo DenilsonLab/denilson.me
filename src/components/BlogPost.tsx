@@ -11,7 +11,7 @@ import { LayoutWithSidebar } from "./LayoutWithSidebar";
 import { calculateReadingTime } from "../utils/readingTime";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { BlogCard } from "./BlogCard";
-import "../styles/blog-markdown.css";
+
 
 export default function BlogPost() {
     const { slug } = useParams();
@@ -132,12 +132,12 @@ export default function BlogPost() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
-                            className="flex flex-col md:flex-row md:items-center justify-between gap-6"
+                            className="flex flex-col md:flex-row  gap-6"
                         >
-                            <div className="flex items-center gap-4 pt-4 pb-2 bg-[#161b22]/50 border border-[#30363d] rounded-xl backdrop-blur-sm">
+                            <div className="flex items-center gap-4 pt-4 pl-4 pr-5 pb-2 bg-[#161b22]/50 border border-[#30363d] rounded-xl backdrop-blur-sm">
                                 <div className="flex flex-col gap-1">
                                     <div className="flex items-center gap-2">
-                                        
+
                                         <span className="font-semibold text-gray-100 text-base">Denilson Arguello</span>
                                         <span className="text-xs text-gray-500 bg-[#161b22] px-2 py-0.5 rounded-full border border-[#30363d]">Autor</span>
                                     </div>
@@ -183,29 +183,15 @@ export default function BlogPost() {
                         initial={{ opacity: 0, scale: 0.97 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="max-w-[1048px] mx-auto px-6 lg:px-10 -mt-8 mb-16 relative z-20"
+                        className=" mx-auto px-6 lg:px-10 max-w-[1048px] -mt-8 mb-16 relative z-20"
                     >
-                        <div className="relative w-full max-h-[260px] rounded-[32px] overflow-hidden border border-[#30363d] shadow-[0_35px_65px_rgba(2,6,23,0.65)] bg-[#05060a] group">
+                        <div className="relative w-full max-h-[600px] rounded-[20px] overflow-hidden border border-[#30363d] shadow-[0_35px_65px_rgba(2,6,23,0.65)] bg-[#05060a] group">
                             <img
                                 src={post.image_url}
                                 alt={post.title}
                                 className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105 hero-mask-img"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d1117]/30 to-[#0d1117] opacity-90" />
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 }}
-                                className="absolute inset-x-0 bottom-0 p-6 md:p-10 space-y-3 text-gray-100"
-                            >
-                                <p className="text-xs uppercase tracking-[0.4em] text-[#58a6ff]/70">Artículo destacado</p>
-                                <h2 className="text-2xl md:text-3xl font-semibold leading-snug">{post.title}</h2>
-                                {(post.excerpt || post.content) && (
-                                    <p className="text-sm md:text-base text-gray-300/80 max-w-3xl">
-                                        {post.excerpt || `${post.content.substring(0, 140)}...`}
-                                    </p>
-                                )}
-                            </motion.div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d1117]/30 to-[#0d1117] opacity-80" />
                         </div>
                     </motion.div>
                 )}
@@ -215,15 +201,20 @@ export default function BlogPost() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="max-w-[720px] mx-auto p-6 md:p-10 text-lg leading-relaxed text-gray-300 bg-[#060910]/80 rounded-[28px] border border-[#161d2c] shadow-[0_35px_80px_rgba(0,0,0,0.35)]"
+                    className="max-w-[1048px] mx-auto p-6 md:p-10 text-lg leading-relaxed text-gray-300 bg-[#060910]/80 rounded-[28px] border border-[#161d2c] shadow-[0_35px_80px_rgba(0,0,0,0.35)]"
                 >
                     {post.excerpt && (
-                        <p className="mb-10 text-2xl text-gray-400 leading-relaxed font-light border-l-4 border-[#58a6ff] pl-6 py-2">
+                        <p className="mb-10 text-2xl text-gray-400 leading-relaxed border-l-4 border-[#58a6ff] pl-6 py-2">
                             {post.excerpt}
                         </p>
                     )}
 
-                    <div className="blog-markdown pb-12 border-b border-[#30363d]">
+                    <div className="prose prose-invert prose-lg max-w-none pb-12 border-b border-[#30363d] 
+                        prose-headings:text-gray-100 prose-p:text-gray-300 prose-a:text-[#58a6ff] prose-a:no-underline hover:prose-a:text-[#79c0ff]
+                        prose-code:text-[#ff7b72] prose-code:bg-[#161b22] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+                        prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[#30363d]
+                        prose-blockquote:border-l-[#58a6ff] prose-blockquote:bg-[#161b22]/50 prose-blockquote:py-1 prose-blockquote:pr-4 prose-blockquote:rounded-r-lg
+                        prose-img:rounded-xl prose-img:border prose-img:border-[#30363d] prose-img:shadow-xl">
                         <ReactMarkdown
                             components={{
                                 code({ node, inline, className, children, ...props }: any) {
@@ -273,7 +264,7 @@ export default function BlogPost() {
                 </motion.article>
 
                 {/* Related posts section */}
-                <div className="max-w-[1280px] mx-auto px-6 lg:px-10 mt-28 pb-24">
+                <div className="max-w-[1048px] mx-auto px-6 lg:px-10 mt-28 pb-24">
                     <div className="flex items-center gap-4 mb-4">
                         <h3 className="text-2xl font-bold text-gray-100">Lee también</h3>
                         <div className="h-px flex-1 bg-[#30363d]" />

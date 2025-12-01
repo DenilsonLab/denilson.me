@@ -47,9 +47,9 @@ const DialogContent = React.forwardRef<
         // Base styles
         "fixed z-50 bg-background",
         // Mobile styles
-        "inset-0 w-lg h-[100dvh] p-4",
+        " w-lg h-[100dvh] p-4",
         // Desktop styles
-        "md:inset-auto md:w-[70%] md:h-auto md:max-w-[500px]",
+        "md:inset-auto md:w-[70%] md:h-auto ",
         "md:rounded-lg md:border md:p-6",
         "md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
         // Scroll and spacing
