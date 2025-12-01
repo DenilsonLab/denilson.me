@@ -8,23 +8,23 @@ export default function NotFound() {
 
   const containerVariants = {
     initial: { opacity: 0, scale: 0.8 },
-    animate: { 
+    animate: {
       opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.5,
-        staggerChildren: 0.2 
+        staggerChildren: 0.2
       }
     }
   }
 
   const itemVariants = {
     initial: { opacity: 0, y: 50, rotate: -10 },
-    animate: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       y: 0,
       rotate: 0,
-      transition: { 
+      transition: {
         duration: 0.8
       }
     }
@@ -32,7 +32,7 @@ export default function NotFound() {
 
   const numberVariants = {
     initial: { opacity: 0, scale: 0.5, rotateY: -180 },
-    animate: { 
+    animate: {
       opacity: 1,
       scale: 1,
       rotateY: 0
@@ -48,7 +48,7 @@ export default function NotFound() {
 
   const ghostVariants = {
     initial: { scale: 0, rotate: 180 },
-    animate: { 
+    animate: {
       scale: 1,
       rotate: 0
     },
@@ -94,7 +94,7 @@ export default function NotFound() {
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.5 }}
           />
-          
+
           {/* Cable derecho */}
           <motion.div
             className="absolute -right-8 top-1/2 w-16 h-1 bg-gradient-to-l from-[#58a6ff] to-transparent origin-right"
@@ -167,7 +167,7 @@ export default function NotFound() {
           ))}
         </div>
 
-        <motion.h1 
+        <motion.h1
           className="text-7xl font-bold mb-4 bg-gradient-to-r from-[#58a6ff] to-[#bc8cff] text-transparent bg-clip-text"
           initial={{ scale: 0.5, y: 100 }}
           animate={{ scale: 1, y: 0 }}
@@ -185,25 +185,16 @@ export default function NotFound() {
           404
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           className="text-xl mb-2 text-gray-400"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          ¡Ups! Parece que te has perdido en el espacio digital
+          ¡Ups! Parece que te has perdido...
         </motion.p>
 
-        <motion.p 
-          className="text-md mb-8 text-gray-500"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          La página que buscas ha desaparecido en el ciberespacio
-        </motion.p>
-
-        <motion.div 
+        <motion.div
           className="flex gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

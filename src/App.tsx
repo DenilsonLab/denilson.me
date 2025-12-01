@@ -64,7 +64,6 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-[#161b22] border-t border-[#21262d] text-gray-400 py-8 px-8">
         <div className="container mx-auto max-w-6xl text-center">
-          <p>© 2025 Denilson Arguello - {t.footer.rights}</p>
           <p className="text-[#58a6ff] mt-2">{t.footer.madeWith}</p>
         </div>
       </footer>

@@ -1625,7 +1625,7 @@
   }
 
   .text-card-foreground {
-    color: var(--card-foreground);
+    color: #fff;
   }
 
   .text-foreground {

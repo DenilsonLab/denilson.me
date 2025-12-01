@@ -122,12 +122,11 @@ export function Sidebar({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 + index * 0.05 }}
                 onClick={() => handleNavigation(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${
-                  (item.id === 'blog' && location.pathname.startsWith('/blog')) ||
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${(item.id === 'blog' && location.pathname.startsWith('/blog')) ||
                   (item.id !== 'blog' && activeSection === item.id && location.pathname === '/')
-                    ? "bg-[#238636] text-white shadow-md shadow-[#238636]/20"
-                    : "hover:bg-[#161b22] text-gray-400 hover:text-gray-200"
-                }`}
+                  ? "bg-[#238636] text-white shadow-md shadow-[#238636]/20"
+                  : "hover:bg-[#161b22] text-gray-400 hover:text-gray-200"
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>
@@ -145,10 +144,10 @@ export function Sidebar({
           transition={{ delay: 0.5 }}
           className="space-y-3"
         >
-          <Button className="w-full bg-[#238636] hover:bg-[#2ea043] text-white border-0 shadow-md shadow-[#238636]/20 text-sm">
+          {/* <Button className="w-full bg-[#238636] hover:bg-[#2ea043] text-white border-0 shadow-md shadow-[#238636]/20 text-sm">
             <Download className="w-4 h-4 mr-2" />
             {t.sidebar.downloadCV}
-          </Button>
+          </Button> */}
 
           {/* Social Links */}
           <div className="flex gap-2 justify-center">
@@ -214,7 +213,7 @@ export function Sidebar({
                 <FolderGit2 className="w-3.5 h-3.5" />
                 <p className="text-xs">{t.sidebar.projects}</p>
               </div>
-              <p className="text-lg text-gray-100">50+</p>
+              <p className="text-lg text-gray-100">27+</p>
               <p className="text-xs text-gray-500">completados</p>
             </motion.div>
           </div>
