@@ -1,4 +1,4 @@
-import { ArrowRight, Star, GitFork, Code2, Sparkles, Rocket, Cpu, Database, Cloud } from "lucide-react";
+import { ArrowRight, Star, GitFork, Code2, Sparkles, Rocket, Cpu, Database, Cloud, Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
@@ -71,20 +71,21 @@ export function HeroSection({ t }: HeroSectionProps) {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-wrap gap-4"
             >
-              <Button asChild className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer">
+              {/* <Button asChild className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer">
                 <a href="#proyectos">
                   <Rocket className="w-4 h-4 mr-2" />
                   {t.hero.viewProjects}
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
-              </Button>
+              </Button> */}
               <Button
                 asChild
-                variant="outline"
-                className="border-[#21262d] bg-[#161b22] hover:bg-[#21262d] hover:border-[#58a6ff] text-gray-300 hover:text-[#58a6ff] cursor-pointer"
+                className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer shadow-lg shadow-[#238636]/20 px-8 py-6 text-lg"
               >
                 <a href="#contacto">
+                  <Mail className="w-5 h-5 mr-3" />
                   {t.hero.contact}
+                  <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
             </motion.div>

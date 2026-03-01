@@ -15,6 +15,8 @@ interface SidebarProps {
   language: Language;
   onLanguageToggle: () => void;
   t: typeof translations.es;
+  isMobile?: boolean;
+  onClose?: () => void;
 }
 
 export function Sidebar({
@@ -22,7 +24,9 @@ export function Sidebar({
   onNavigate,
   language,
   onLanguageToggle,
-  t
+  t,
+  isMobile,
+  onClose
 }: SidebarProps) {
   const { settings } = useSettings();
   const githubUrl = settings?.social_links?.github || "https://github.com/denilsonpy";
@@ -33,8 +37,8 @@ export function Sidebar({
     { id: "inicio", label: t.nav.home, icon: Home },
     { id: "servicios", label: t.nav.services, icon: Briefcase },
     { id: "habilidades", label: t.nav.skills, icon: Code2 },
-    { id: "proyectos", label: t.nav.projects, icon: FolderGit2 },
-    { id: "blog", label: t.nav.blog, icon: BookOpen },
+    // { id: "proyectos", label: t.nav.projects, icon: FolderGit2 },
+    // { id: "blog", label: t.nav.blog, icon: BookOpen },
     { id: "contacto", label: t.nav.contact, icon: Mail },
   ];
 
@@ -42,24 +46,22 @@ export function Sidebar({
   const navigate = useNavigate();
 
   const handleNavigation = (id: string) => {
+    if (onClose) onClose();
     if (id === 'blog') {
       navigate('/blog');
       return;
     }
 
     if (location.pathname !== '/') {
-      // Navigate to home with hash
-      // The useEffect in App.tsx will handle scrolling to the section
       navigate(`/#${id}`);
       return;
     }
 
-    // We're already on home page, use the scroll function directly
     onNavigate(id);
   };
 
   return (
-    <aside className="w-80 h-screen bg-[#0d1117] border-r border-[#21262d] overflow-y-auto">
+    <aside className={`w-80 bg-[#0d1117] border-r border-[#21262d] overflow-y-auto ${isMobile ? 'h-full border-r-0' : 'h-screen'}`}>
       <div className="p-6 space-y-6">
         {/* Profile Section */}
         <motion.div

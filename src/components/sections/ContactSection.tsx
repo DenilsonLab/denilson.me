@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, Send, Loader2, Github, Linkedin, Twitter, Instagram, MessageCircle, Zap, Clock, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Send, Loader2, Github, Linkedin, Twitter, Instagram, MessageCircle, Zap, Clock, AlertCircle, CheckCircle2, Phone } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -64,6 +64,41 @@ export function ContactSection({ t }: ContactSectionProps) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const ObfuscatedPhoneItem = ({ label }: { label: string }) => {
+    const [revealed, setRevealed] = useState(false);
+    // Dividir el número para evitar que scrapers lo extraigan fácilmente del bundle
+    const p1 = "+595";
+    const p2 = "991";
+    const p3 = "432";
+    const p4 = "725";
+
+    return (
+      <motion.div
+        whileHover={{ x: 5 }}
+        className="flex items-start gap-4 cursor-pointer"
+        onClick={() => setRevealed(true)}
+      >
+        <div className="w-12 h-12 bg-[#ffa657]/10 border border-[#ffa657]/30 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors hover:bg-[#ffa657]/20">
+          <Phone className="w-6 h-6 text-[#ffa657]" />
+        </div>
+        <div>
+          <h3 className="text-gray-100">{label}</h3>
+          <p className="text-gray-400">
+            {revealed ? (
+              <a href={`tel:${p1}${p2}${p3}${p4}`} className="hover:text-[#ffa657] transition-colors">
+                {p1} {p2} {p3} {p4}
+              </a>
+            ) : (
+              <span className="text-sm border-b border-dashed border-gray-500 hover:text-gray-300">
+                Haz clic para ver
+              </span>
+            )}
+          </p>
+        </div>
+      </motion.div>
+    );
   };
 
   return (
@@ -135,6 +170,8 @@ export function ContactSection({ t }: ContactSectionProps) {
                       <p className="text-gray-400">{t.sidebar.locationValue}</p>
                     </div>
                   </motion.div>
+
+                  <ObfuscatedPhoneItem label="Teléfono" />
                 </CardContent>
               </Card>
             </motion.div>

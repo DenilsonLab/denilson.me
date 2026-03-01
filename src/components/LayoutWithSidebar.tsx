@@ -1,4 +1,5 @@
 import { Sidebar } from "./Sidebar";
+import { MobileNav } from "./MobileNav";
 import { Language, translations } from "../utils/translations";
 
 interface LayoutWithSidebarProps {
@@ -19,9 +20,18 @@ export function LayoutWithSidebar({
     const t = translations[language];
 
     return (
-        <div className="flex min-h-screen bg-[#0d1117]">
-            {/* Sidebar - Only visible on tablet and desktop */}
-            <div className="hidden md:block sticky top-0 h-screen">
+        <div className="flex flex-col md:flex-row min-h-screen bg-[#0d1117]">
+            {/* Mobile Navigation - Only visible on mobile */}
+            <MobileNav
+                activeSection={activeSection}
+                onNavigate={onNavigate}
+                language={language}
+                onLanguageToggle={onLanguageToggle}
+                t={t}
+            />
+
+            {/* Sidebar - Desktop logic handles visibility via CSS */}
+            <div className="hidden md:block sticky top-0 h-screen shrink-0">
                 <Sidebar
                     activeSection={activeSection}
                     onNavigate={onNavigate}

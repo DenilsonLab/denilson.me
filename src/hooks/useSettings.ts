@@ -8,8 +8,8 @@ const defaultSettings: Settings = {
     site_description: 'Portfolio y Blog de Denilson Arguello. Ingeniero de Software Full Stack enfocado en construir experiencias web excepcionales.',
     contact_email: 'contacto@denilson.me',
     social_links: {
-        github: 'https://github.com/denilson',
-        linkedin: 'https://linkedin.com/in/denilson',
+        github: 'https://github.com/DenilsonLab',
+        linkedin: 'https://www.linkedin.com/in/denilsn/',
     }
 }
 
