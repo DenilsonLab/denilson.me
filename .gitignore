@@ -21,3 +21,4 @@ pnpm-debug.log*
 .pnp.js
 /.turbo/
 *.localnode_modules
+.agents/

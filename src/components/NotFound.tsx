@@ -71,12 +71,7 @@ export default function NotFound() {
     }
   }
 
-  const shake = async () => {
-    await controls.start({
-      rotate: [0, -5, 5, -5, 5, 0],
-      transition: { duration: 0.5 }
-    })
-  }
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#0d1117] text-gray-100">

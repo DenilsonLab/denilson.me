@@ -1,125 +1,64 @@
 import { useCallback, useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
 import type { Post } from '@/types/database.types'
 
-const POSTS_KEY = 'posts'
+const defaultPosts: Post[] = [
+    {
+        id: 1,
+        created_at: new Date().toISOString(),
+        title: 'Introducción a React 19',
+        content: 'Explorando las nuevas características de React 19...',
+        slug: 'introduccion-a-react-19',
+        published: true,
+        image_url: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800',
+        excerpt: 'Un resumen completo de lo que trae la nueva versión de React y cómo nos afectará.',
+        category: 'Desarrollo Web',
+        category_color: '#61dafb',
+        tags: ['React', 'Frontend', 'JavaScript']
+    },
+    {
+        id: 2,
+        created_at: new Date(Date.now() - 86400000 * 5).toISOString(),
+        title: 'El futuro del Full Stack con Next.js',
+        content: 'Cómo Server Actions y RSC están cambiando el panorama...',
+        slug: 'futuro-full-stack-nextjs',
+        published: true,
+        image_url: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800',
+        excerpt: 'Next.js difumina la línea entre cliente y servidor. ¿Es este el modo definitivo de hacer web?',
+        category: 'Arquitectura',
+        category_color: '#000000',
+        tags: ['Next.js', 'React', 'Full Stack']
+    }
+]
 
 export function usePosts() {
-    const queryClient = useQueryClient()
+    const [posts] = useState<Post[]>(defaultPosts)
+    const [isLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    // Obtener todos los posts
-    const { data: posts, isLoading } = useQuery({
-        queryKey: [POSTS_KEY],
-        queryFn: async () => {
-            const { data, error } = await supabase
-                .from('posts')
-                .select('*')
-                .order('created_at', { ascending: false })
-
-            if (error) throw error
-            return data as Post[]
-        }
-    })
-
-    // Obtener un post por slug
     const getPostBySlug = useCallback(async (slug: string) => {
-        const { data, error } = await supabase
-            .from('posts')
-            .select('*')
-            .eq('slug', slug)
-            .single()
-
-        if (error) throw error
-        return data as Post
+        const post = defaultPosts.find(p => p.slug === slug)
+        if (!post) throw new Error('Post not found')
+        return post
     }, [])
 
-    // Subir imagen del post
-    const { mutateAsync: uploadImage } = useMutation({
-        mutationFn: async (file: File) => {
-            const fileExt = file.name.split('.').pop()
-            const fileName = `${Math.random()}.${fileExt}`
-            const filePath = `posts/${fileName}`
+    const uploadImage = async (file: File) => {
+        console.log('Mock upload image', file.name)
+        return URL.createObjectURL(file)
+    }
 
-            const { error: uploadError } = await supabase.storage
-                .from('images')
-                .upload(filePath, file)
+    const createPost = async (post: any) => {
+        console.log('Mock create post', post)
+        return post
+    }
 
-            if (uploadError) throw uploadError
+    const updatePost = async (post: any) => {
+        console.log('Mock update post', post)
+        return post
+    }
 
-            const { data: { publicUrl } } = supabase.storage
-                .from('images')
-                .getPublicUrl(filePath)
-
-            return publicUrl
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
-
-    // Crear post
-    const { mutateAsync: createPost } = useMutation({
-        mutationFn: async (post: Omit<Post, 'id' | 'created_at'>) => {
-            const { data, error } = await supabase
-                .from('posts')
-                .insert(post)
-                .select()
-                .single()
-
-            if (error) throw error
-            return data
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
-            setError(null)
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
-
-    // Actualizar post
-    const { mutateAsync: updatePost } = useMutation({
-        mutationFn: async ({ id, ...post }: Partial<Post> & { id: number }) => {
-            const { data, error } = await supabase
-                .from('posts')
-                .update(post)
-                .eq('id', id)
-                .select()
-                .single()
-
-            if (error) throw error
-            return data
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
-            setError(null)
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
-
-    // Eliminar post
-    const { mutateAsync: deletePost } = useMutation({
-        mutationFn: async (id: number) => {
-            const { error } = await supabase
-                .from('posts')
-                .delete()
-                .eq('id', id)
-
-            if (error) throw error
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
-            setError(null)
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
+    const deletePost = async (id: number) => {
+        console.log('Mock delete post', id)
+    }
 
     const clearError = useCallback(() => {
         setError(null)

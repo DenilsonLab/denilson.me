@@ -1,115 +1,75 @@
 import { useCallback, useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
 import type { Project } from '@/types/database.types'
 
-const PROJECTS_KEY = 'projects'
+const defaultProjects: Project[] = [
+  {
+    id: '1',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    name: 'VisiomixAI PageBuilder',
+    tagline: 'Constructor de páginas IA para WordPress',
+    description: 'Plugin de WordPress completo que utiliza IA para generar estructuras de bloques Gutenberg y diseños personalizados.',
+    image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&q=80&w=800',
+    tags: ['React', 'WordPress', 'PHP', 'AI'],
+    github_url: null,
+    demo_url: 'https://visiomix.ai',
+    language: 'TypeScript',
+    language_color: '#3178c6',
+    stars: 12,
+    forks: 2,
+    views: '1.2k',
+    logo: null,
+    gradient: 'from-blue-500 to-cyan-500',
+    status: 'completed',
+    is_ai: true
+  },
+  {
+    id: '2',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    name: 'NutriApp',
+    tagline: 'Plataforma para nutricionistas',
+    description: 'Gestor de pacientes, recetas y consultas para profesionales de la nutrición.',
+    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800',
+    tags: ['Next.js', 'Tailwind', 'Supabase'],
+    github_url: null,
+    demo_url: null,
+    language: 'TypeScript',
+    language_color: '#3178c6',
+    stars: 5,
+    forks: 0,
+    views: '300',
+    logo: null,
+    gradient: 'from-green-500 to-emerald-500',
+    status: 'in_progress',
+    is_ai: false
+  }
+]
 
 export function useProjects() {
-  const queryClient = useQueryClient()
+  const [projects] = useState<Project[]>(defaultProjects)
+  const [isLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Obtener todos los proyectos
-  const { data: projects, isLoading } = useQuery({
-    queryKey: [PROJECTS_KEY],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false })
+  const uploadImage = async (file: File) => {
+    console.log('Mock upload image', file.name)
+    return URL.createObjectURL(file)
+  }
 
-      if (error) throw error
-      return data as Project[]
-    }
-  })
+  const createProject = async (project: any) => {
+    console.log('Mock create project', project)
+    return project
+  }
 
-  // Subir una imagen
-  const { mutateAsync: uploadImage } = useMutation({
-    mutationFn: async (file: File) => {
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Math.random()}.${fileExt}`
-      const filePath = `projects/${fileName}`
+  const updateProject = async (project: any) => {
+    console.log('Mock update project', project)
+    return project
+  }
 
-      const { error: uploadError } = await supabase.storage
-        .from('images')
-        .upload(filePath, file)
+  const deleteProject = async (id: string) => {
+    console.log('Mock delete project', id)
+  }
 
-      if (uploadError) throw uploadError
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('images')
-        .getPublicUrl(filePath)
-
-      return publicUrl
-    },
-    onError: (error: Error) => {
-      setError(error.message)
-    }
-  })
-
-  // Crear un nuevo proyecto
-  const { mutateAsync: createProject } = useMutation({
-    mutationFn: async (project: Omit<Project, 'id' | 'created_at' | 'updated_at'>) => {
-      const { data, error } = await supabase
-        .from('projects')
-        .insert(project)
-        .select()
-        .single()
-
-      if (error) throw error
-      return data
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [PROJECTS_KEY] })
-      setError(null)
-    },
-    onError: (error: Error) => {
-      setError(error.message)
-    }
-  })
-
-  // Actualizar un proyecto
-  const { mutateAsync: updateProject } = useMutation({
-    mutationFn: async ({ id, ...project }: Partial<Project> & { id: string }) => {
-      const { data, error } = await supabase
-        .from('projects')
-        .update(project)
-        .eq('id', id)
-        .select()
-        .single()
-
-      if (error) throw error
-      return data
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [PROJECTS_KEY] })
-      setError(null)
-    },
-    onError: (error: Error) => {
-      setError(error.message)
-    }
-  })
-
-  // Eliminar un proyecto
-  const { mutateAsync: deleteProject } = useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from('projects')
-        .delete()
-        .eq('id', id)
-
-      if (error) throw error
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [PROJECTS_KEY] })
-      setError(null)
-    },
-    onError: (error: Error) => {
-      setError(error.message)
-    }
-  })
-
-  // Limpiar error
   const clearError = useCallback(() => {
     setError(null)
   }, [])

@@ -1,85 +1,36 @@
 import { useCallback, useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
 import type { ContactMessage } from '@/types/database.types'
 
-const MESSAGES_KEY = 'messages'
-
 export function useMessages() {
-    const queryClient = useQueryClient()
     const [error, setError] = useState<string | null>(null)
+    const [messages] = useState<ContactMessage[]>([])
+    const [isLoading] = useState(false)
 
-    // Obtener mensajes (solo admin)
-    const { data: messages, isLoading } = useQuery({
-        queryKey: [MESSAGES_KEY],
-        queryFn: async () => {
-            const { data, error } = await supabase
-                .from('contact_messages')
-                .select('*')
-                .order('created_at', { ascending: false })
-
-            if (error) throw error
-            return data as ContactMessage[]
+    // Enviar mensaje (público) de forma simulada
+    const sendMessage = async (message: Omit<ContactMessage, 'id' | 'created_at' | 'read'>) => {
+        try {
+            // Simular delay de red
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log('Mensaje enviado (simulado):', message);
+            return {
+                id: Date.now(),
+                created_at: new Date().toISOString(),
+                read: false,
+                ...message
+            };
+        } catch (err: any) {
+            setError(err.message)
+            throw err
         }
-    })
+    }
 
-    // Enviar mensaje (público)
-    const { mutateAsync: sendMessage } = useMutation({
-        mutationFn: async (message: Omit<ContactMessage, 'id' | 'created_at' | 'read'>) => {
-            const { data, error } = await supabase
-                .from('contact_messages')
-                .insert(message)
-                .select()
-                .single()
+    const markAsRead = async (id: number) => {
+        console.log('Marcar como leido', id)
+    }
 
-            if (error) throw error
-            return data
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
-
-    // Marcar como leído
-    const { mutateAsync: markAsRead } = useMutation({
-        mutationFn: async (id: number) => {
-            const { data, error } = await supabase
-                .from('contact_messages')
-                .update({ read: true })
-                .eq('id', id)
-                .select()
-                .single()
-
-            if (error) throw error
-            return data
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [MESSAGES_KEY] })
-            setError(null)
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
-
-    // Eliminar mensaje
-    const { mutateAsync: deleteMessage } = useMutation({
-        mutationFn: async (id: number) => {
-            const { error } = await supabase
-                .from('contact_messages')
-                .delete()
-                .eq('id', id)
-
-            if (error) throw error
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [MESSAGES_KEY] })
-            setError(null)
-        },
-        onError: (error: Error) => {
-            setError(error.message)
-        }
-    })
+    const deleteMessage = async (id: number) => {
+        console.log('Eliminar mensaje', id)
+    }
 
     const clearError = useCallback(() => {
         setError(null)
