@@ -47,9 +47,9 @@ const DialogContent = React.forwardRef<
         // Base styles
         "fixed z-50 bg-background",
         // Mobile styles
-        " w-lg h-[100dvh] p-4",
+        "inset-x-4 top-4 bottom-4 w-auto max-w-none p-4",
         // Desktop styles
-        "md:inset-auto md:w-[70%] md:h-auto ",
+        "md:inset-auto md:w-[70%] md:h-auto md:max-w-lg",
         "md:rounded-lg md:border md:p-6",
         "md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
         // Scroll and spacing
@@ -61,7 +61,7 @@ const DialogContent = React.forwardRef<
       )}
       style={{
         position: "fixed",
-        maxHeight: "calc(100vh - 2rem)", // Añade margen en la parte superior e inferior
+        maxHeight: "calc(100dvh - 2rem)",
         ...props.style
       }}
       {...props}

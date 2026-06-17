@@ -1,4 +1,4 @@
-import { Home, Briefcase, Code2, FolderGit2, BookOpen, Mail, Download, Github, Linkedin, MessageSquare, Terminal, MapPin, Briefcase as BriefcaseIcon, Coffee, Bug, Zap } from "lucide-react";
+import { Home, Briefcase, Code2, FolderGit2, BookOpen, Mail, Github, Linkedin, MessageSquare, Terminal, MapPin, Briefcase as BriefcaseIcon, Coffee, Bug, Zap, Languages, ArrowUpRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
@@ -37,6 +37,7 @@ export function Sidebar({
     { id: "inicio", label: t.nav.home, icon: Home },
     { id: "servicios", label: t.nav.services, icon: Briefcase },
     { id: "habilidades", label: t.nav.skills, icon: Code2 },
+    { id: "resources", label: t.nav.resources, icon: BookOpen },
     // { id: "proyectos", label: t.nav.projects, icon: FolderGit2 },
     // { id: "blog", label: t.nav.blog, icon: BookOpen },
     { id: "contacto", label: t.nav.contact, icon: Mail },
@@ -49,6 +50,13 @@ export function Sidebar({
     if (onClose) onClose();
     if (id === 'blog') {
       navigate('/blog');
+      return;
+    }
+
+    if (id === 'resources') {
+      if (location.pathname !== '/resources') {
+        window.open('/resources', '_blank', 'noopener,noreferrer');
+      }
       return;
     }
 
@@ -124,34 +132,48 @@ export function Sidebar({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 + index * 0.05 }}
                 onClick={() => handleNavigation(item.id)}
+                aria-label={item.id === 'resources' ? `${item.label}, abre en una nueva ventana` : item.label}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${(item.id === 'blog' && location.pathname.startsWith('/blog')) ||
-                  (item.id !== 'blog' && activeSection === item.id && location.pathname === '/')
+                  (item.id === 'resources' && location.pathname === '/resources') ||
+                  (item.id !== 'blog' && item.id !== 'resources' && activeSection === item.id && location.pathname === '/')
                   ? "bg-[#238636] text-white shadow-md shadow-[#238636]/20"
                   : "hover:bg-[#161b22] text-gray-400 hover:text-gray-200"
                   }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>
+                {item.id === 'resources' && <ArrowUpRight className="ml-auto w-4 h-4 opacity-70" />}
               </motion.button>
             );
           })}
         </nav>
 
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+        >
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onLanguageToggle}
+            aria-label={language === 'es' ? 'Cambiar idioma a ingles' : 'Change language to Spanish'}
+            className="w-full border-[#21262d] bg-[#161b22] text-gray-300 hover:bg-[#21262d] hover:text-[#58a6ff]"
+          >
+            <Languages className="mr-2 w-4 h-4" />
+            {language === 'es' ? 'Switch to English' : 'Cambiar a Espanol'}
+          </Button>
+        </motion.div>
+
         <Separator className="bg-[#21262d]" />
 
-        {/* CV Download */}
+        {/* Social Links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="space-y-3"
         >
-          {/* <Button className="w-full bg-[#238636] hover:bg-[#2ea043] text-white border-0 shadow-md shadow-[#238636]/20 text-sm">
-            <Download className="w-4 h-4 mr-2" />
-            {t.sidebar.downloadCV}
-          </Button> */}
-
-          {/* Social Links */}
           <div className="flex gap-2 justify-center">
             <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
               <a href={githubUrl} target="_blank" rel="noopener noreferrer">

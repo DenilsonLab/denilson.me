@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sidebar } from "./Sidebar";
 import { Language, translations } from "../utils/translations";
@@ -56,6 +56,7 @@ export function MobileNav({
                     </button>
                 </SheetTrigger>
                 <SheetContent side="left" className="p-0 bg-[#0d1117] border-r-[#21262d] w-80">
+                    <SheetTitle className="sr-only">Menu principal</SheetTitle>
                     <Sidebar
                         activeSection={activeSection}
                         onNavigate={handleNavigate}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { LayoutWithSidebar } from "./components/LayoutWithSidebar";
 import { HeroSection } from "./components/sections/HeroSection";
@@ -11,19 +11,16 @@ import { Language, translations } from "./utils/translations";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { Helmet } from "react-helmet-async";
 import { useSettings } from "./hooks/useSettings";
+import { useLanguagePreference } from "./hooks/useLanguagePreference";
 
 export default function App() {
   const sections = ["inicio", "servicios", "habilidades", /* "proyectos", "blog", */ "contacto"];
   const { activeSection, scrollToSection } = useActiveSection(sections);
-  const [language, setLanguage] = useState<Language>('es');
+  const { language, toggleLanguage } = useLanguagePreference();
   const { settings } = useSettings();
   const location = useLocation();
 
   const t = translations[language];
-
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'es' ? 'en' : 'es');
-  };
 
   // Handle hash navigation when page loads or location changes
   useEffect(() => {
