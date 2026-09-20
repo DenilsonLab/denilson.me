@@ -4,7 +4,7 @@ import { LayoutWithSidebar } from "./components/LayoutWithSidebar";
 import { HeroSection } from "./components/sections/HeroSection";
 import { ServicesSection } from "./components/sections/ServicesSection";
 import { SkillsSection } from "./components/sections/SkillsSection";
-// import { ProjectsSection } from "./components/sections/ProjectsSection";
+import { ProjectsSection } from "./components/sections/ProjectsSection";
 // import { BlogSection } from "./components/sections/BlogSection";
 import { ContactSection } from "./components/sections/ContactSection";
 import { Language, translations } from "./utils/translations";
@@ -14,7 +14,7 @@ import { useSettings } from "./hooks/useSettings";
 import { useLanguagePreference } from "./hooks/useLanguagePreference";
 
 export default function App() {
-  const sections = ["inicio", "servicios", "habilidades", /* "proyectos", "blog", */ "contacto"];
+  const sections = ["inicio", "servicios", "habilidades", "proyectos", /* "blog", */ "contacto"];
   const { activeSection, scrollToSection } = useActiveSection(sections);
   const { language, toggleLanguage } = useLanguagePreference();
   const { settings } = useSettings();
@@ -53,7 +53,7 @@ export default function App() {
       <HeroSection t={t} />
       <ServicesSection t={t} />
       <SkillsSection t={t} />
-      {/* <ProjectsSection t={t} activeSection={activeSection} /> */}
+      <ProjectsSection t={t} language={language} />
       {/* <BlogSection t={t} /> */}
       <ContactSection t={t} />
 

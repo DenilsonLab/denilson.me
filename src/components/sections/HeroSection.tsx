@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { motion } from "framer-motion";
 import { translations } from "../../utils/translations";
-import ProfilePicture from '../../assets/profile.jpg';
 
 interface HeroSectionProps {
   t: typeof translations.es;
@@ -71,21 +70,25 @@ export function HeroSection({ t }: HeroSectionProps) {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-wrap gap-4"
             >
-              {/* <Button asChild className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer">
-                <a href="#proyectos">
-                  <Rocket className="w-4 h-4 mr-2" />
-                  {t.hero.viewProjects}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </Button> */}
               <Button
                 asChild
-                className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer shadow-lg shadow-[#238636]/20 px-8 py-6 text-lg"
+                className="bg-[#238636] hover:bg-[#2ea043] text-white border-0 group cursor-pointer shadow-lg shadow-[#238636]/20 px-6 py-6 text-base"
+              >
+                <a href="#proyectos">
+                  <Rocket className="w-5 h-5 mr-2" />
+                  {t.hero.viewProjects}
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="border-[#21262d] bg-[#161b22] text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff] group cursor-pointer px-6 py-6 text-base"
               >
                 <a href="#contacto">
-                  <Mail className="w-5 h-5 mr-3" />
+                  <Mail className="w-5 h-5 mr-2" />
                   {t.hero.contact}
-                  <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
             </motion.div>

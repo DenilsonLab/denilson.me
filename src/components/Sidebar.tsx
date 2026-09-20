@@ -1,4 +1,4 @@
-import { Home, Briefcase, Code2, FolderGit2, BookOpen, Mail, Github, Linkedin, MessageSquare, Terminal, MapPin, Briefcase as BriefcaseIcon, Coffee, Bug, Zap, Languages, ArrowUpRight } from "lucide-react";
+import { Home, Briefcase, Code2, FolderGit2, Mail, Github, Linkedin, MessageSquare, Terminal, MapPin, Briefcase as BriefcaseIcon, Coffee, Bug, Zap, Languages } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
@@ -29,16 +29,15 @@ export function Sidebar({
   onClose
 }: SidebarProps) {
   const { settings } = useSettings();
-  const githubUrl = settings?.social_links?.github || "https://github.com/denilsonpy";
-  const linkedinUrl = settings?.social_links?.linkedin || "https://www.linkedin.com/in/denilson-arguello/";
+  const githubUrl = settings?.social_links?.github || "https://github.com/DenilsonLab";
+  const linkedinUrl = settings?.social_links?.linkedin || "https://www.linkedin.com/in/denilsn/";
   const discordUrl = settings?.social_links?.discord || "https://discord.com/users/711334090246324324";
 
   const menuItems = [
     { id: "inicio", label: t.nav.home, icon: Home },
     { id: "servicios", label: t.nav.services, icon: Briefcase },
     { id: "habilidades", label: t.nav.skills, icon: Code2 },
-    { id: "resources", label: t.nav.resources, icon: BookOpen },
-    // { id: "proyectos", label: t.nav.projects, icon: FolderGit2 },
+    { id: "proyectos", label: t.nav.projects, icon: FolderGit2 },
     // { id: "blog", label: t.nav.blog, icon: BookOpen },
     { id: "contacto", label: t.nav.contact, icon: Mail },
   ];
@@ -50,13 +49,6 @@ export function Sidebar({
     if (onClose) onClose();
     if (id === 'blog') {
       navigate('/blog');
-      return;
-    }
-
-    if (id === 'resources') {
-      if (location.pathname !== '/resources') {
-        window.open('/resources', '_blank', 'noopener,noreferrer');
-      }
       return;
     }
 
@@ -132,17 +124,16 @@ export function Sidebar({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 + index * 0.05 }}
                 onClick={() => handleNavigation(item.id)}
-                aria-label={item.id === 'resources' ? `${item.label}, abre en una nueva ventana` : item.label}
+                aria-label={item.label}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${(item.id === 'blog' && location.pathname.startsWith('/blog')) ||
-                  (item.id === 'resources' && location.pathname === '/resources') ||
-                  (item.id !== 'blog' && item.id !== 'resources' && activeSection === item.id && location.pathname === '/')
+                  (item.id === 'proyectos' && location.pathname === '/proyectos') ||
+                  (item.id !== 'blog' && activeSection === item.id && location.pathname === '/')
                   ? "bg-[#238636] text-white shadow-md shadow-[#238636]/20"
                   : "hover:bg-[#161b22] text-gray-400 hover:text-gray-200"
                   }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>
-                {item.id === 'resources' && <ArrowUpRight className="ml-auto w-4 h-4 opacity-70" />}
               </motion.button>
             );
           })}

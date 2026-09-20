@@ -1,122 +1,252 @@
+import type { Language } from "@/utils/translations";
+
+/**
+ * Texto localizado. Usa las mismas claves que translations (es | en).
+ */
+export type LocalizedText = Record<Language, string>;
+
+export type ProjectCategory = "web" | "plugin" | "app" | "ai" | "api";
+
+export type ProjectStatus = "production" | "active" | "in_progress" | "archived";
+
 export interface Project {
-    name: string;
-    tagline: string;
-    description: string;
-    language: string;
-    languageColor: string;
-    stars: number;
-    forks: number;
-    views: string;
-    tags: string[];
-    updated: string;
-    isAI: boolean;
-    image: string;
-    logo: string;
-    gradient: string;
-    status: string;
+  /** Identificador estable */
+  id: string;
+  /** Slug para rutas y anclas (ej. /proyectos#slug o futuros detalles) */
+  slug: string;
+  /** Nombre del proyecto (marca, no se traduce) */
+  name: string;
+  /** Frase corta que lo describe */
+  tagline: LocalizedText;
+  /** Descripción de 1-2 líneas */
+  description: LocalizedText;
+  /** Qué hiciste vos en el proyecto */
+  role: LocalizedText;
+  /** Opcional: el problema que resolvía (se muestra en el showcase) */
+  problem?: LocalizedText;
+  /** Tecnologías, usadas también para los filtros */
+  stack: string[];
+  category: ProjectCategory;
+  /** Entra al showcase editorial del home */
+  featured: boolean;
+  status: ProjectStatus;
+  year: number;
+  /**
+   * Par de colores/tokens para el arte de la tarjeta (sin screenshots).
+   * Se usa como `bg-gradient-to-br ${gradient}`.
+   */
+  gradient: string;
+  /** Emoji o inicial que hace de "logo" en el arte */
+  logo?: string;
+  links: {
+    demo?: string;
+    repo?: string;
+  };
+  /**
+   * "owner/name" del repo en GitHub. Si está presente, useProjects
+   * enriquece la tarjeta con stars/forks/lenguaje reales vía la API.
+   */
+  githubRepo?: string;
 }
 
+/**
+ * TODO(denilson): Reemplazar estos proyectos de ejemplo por los reales.
+ * - Completá `links.demo` / `links.repo` con URLs verdaderas.
+ * - Poné `githubRepo` como "DenilsonLab/nombre-del-repo" para que se
+ *   enriquezca con stars/forks/lenguaje desde GitHub automáticamente.
+ * - Ajustá `featured: true` en los 2-3 que quieras destacar en el home.
+ */
 export const projects: Project[] = [
-    {
-        name: "ShopFlow Pro",
-        tagline: "E-Commerce Platform",
-        description: "Plataforma completa de comercio electrónico con WooCommerce, sistema de pagos integrado y panel de administración personalizado.",
-        language: "PHP",
-        languageColor: "bg-[#8957e5]",
-        stars: 247,
-        forks: 82,
-        views: "15.2k",
-        tags: ["WordPress", "WooCommerce", "PHP", "MySQL"],
-        updated: "2 días",
-        isAI: false,
-        image: "https://images.unsplash.com/photo-1658297063569-162817482fb6?w=800",
-        logo: "🛒",
-        gradient: "from-[#8957e5] to-[#1f6feb]",
-        status: "Production",
+  {
+    id: "1",
+    slug: "shopflow-pro",
+    name: "ShopFlow Pro", // TODO: proyecto real
+    tagline: {
+      es: "Plataforma de e-commerce a medida",
+      en: "Custom e-commerce platform",
     },
-    {
-        name: "AdminPro Dashboard",
-        tagline: "React Admin Panel",
-        description: "Dashboard administrativo moderno con React, gráficos interactivos en tiempo real, gestión de usuarios y autenticación JWT segura.",
-        language: "JavaScript",
-        languageColor: "bg-[#f1e05a]",
-        stars: 389,
-        forks: 123,
-        views: "28.4k",
-        tags: ["React", "Node.js", "Chart.js", "Tailwind"],
-        updated: "5 días",
-        isAI: false,
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
-        logo: "📊",
-        gradient: "from-[#f1e05a] to-[#3fb950]",
-        status: "Active",
+    description: {
+      es: "Tienda online completa con carrito, pagos integrados y un panel de administración propio para gestionar catálogo y pedidos.",
+      en: "Full online store with cart, integrated payments and a custom admin panel to manage catalog and orders.",
     },
-    {
-        name: "AI ContentGen",
-        tagline: "AI-Powered Content Platform",
-        description: "Generador de contenido impulsado por IA usando GPT-4. Crea artículos, descripciones de productos y contenido SEO optimizado automáticamente.",
-        language: "TypeScript",
-        languageColor: "bg-[#3178c6]",
-        stars: 1284,
-        forks: 345,
-        views: "67.8k",
-        tags: ["AI", "GPT-4", "React", "Node.js"],
-        updated: "1 día",
-        isAI: true,
-        image: "https://images.unsplash.com/photo-1745674684468-b9fc392fda3f?w=800",
-        logo: "🤖",
-        gradient: "from-[#1f6feb] to-[#3fb950]",
-        status: "Featured",
+    role: {
+      es: "Diseño e implementación full stack, desde la base de datos hasta la interfaz de administración.",
+      en: "Full stack design and implementation, from the database to the admin interface.",
     },
-    {
-        name: "PluginForge Suite",
-        tagline: "WordPress Development Kit",
-        description: "Colección de plugins premium para WordPress: SEO tools avanzadas, cache optimization, security enhancements y analytics dashboard.",
-        language: "PHP",
-        languageColor: "bg-[#8957e5]",
-        stars: 524,
-        forks: 167,
-        views: "34.1k",
-        tags: ["WordPress", "PHP", "Plugin Dev", "Security"],
-        updated: "1 semana",
-        isAI: false,
-        image: "https://images.unsplash.com/photo-1560472354-0088b5dc9d8d?w=800",
-        logo: "🔌",
-        gradient: "from-[#8957e5] to-[#d2a8ff]",
-        status: "Stable",
+    problem: {
+      es: "El cliente vendía por redes sociales y perdía pedidos. Necesitaba un flujo de compra confiable y un panel simple.",
+      en: "The client was selling through social media and losing orders. They needed a reliable checkout flow and a simple panel.",
     },
-    {
-        name: "SmartAPI Engine",
-        tagline: "Intelligent API Platform",
-        description: "API RESTful con IA integrada. Incluye análisis predictivo, auto-optimización de queries y documentación generada automáticamente con Swagger.",
-        language: "TypeScript",
-        languageColor: "bg-[#3178c6]",
-        stars: 765,
-        forks: 218,
-        views: "42.5k",
-        tags: ["AI", "Node.js", "Express", "MongoDB"],
-        updated: "3 días",
-        isAI: true,
-        image: "https://images.unsplash.com/photo-1623282033815-40b05d96c903?w=800",
-        logo: "⚡",
-        gradient: "from-[#3fb950] to-[#58a6ff]",
-        status: "Beta",
+    stack: ["PHP", "WordPress", "WooCommerce", "MySQL"],
+    category: "web",
+    featured: true,
+    status: "production",
+    year: 2024,
+    gradient: "from-[#8957e5] to-[#1f6feb]",
+    logo: "🛒",
+    links: {
+      demo: undefined, // TODO
+      repo: undefined, // TODO
     },
-    {
-        name: "AI ChatBot Pro",
-        tagline: "Conversational AI Solution",
-        description: "Sistema de chatbot inteligente multilenguaje con procesamiento de lenguaje natural, integración con múltiples plataformas y analytics avanzados.",
-        language: "Python",
-        languageColor: "bg-[#3572A5]",
-        stars: 892,
-        forks: 267,
-        views: "51.3k",
-        tags: ["AI", "NLP", "ChatGPT", "Python"],
-        updated: "2 días",
-        isAI: true,
-        image: "https://images.unsplash.com/photo-1745674684468-b9fc392fda3f?w=800",
-        logo: "💬",
-        gradient: "from-[#58a6ff] to-[#8957e5]",
-        status: "Featured",
+    // githubRepo: "DenilsonLab/shopflow-pro", // TODO: descomentar cuando exista
+  },
+  {
+    id: "2",
+    slug: "adminpro-dashboard",
+    name: "AdminPro Dashboard", // TODO: proyecto real
+    tagline: {
+      es: "Panel administrativo en tiempo real",
+      en: "Real-time admin dashboard",
     },
+    description: {
+      es: "Dashboard con métricas en vivo, gestión de usuarios y autenticación segura, construido para escalar.",
+      en: "Dashboard with live metrics, user management and secure authentication, built to scale.",
+    },
+    role: {
+      es: "Frontend en React y diseño de la capa de datos con actualización en tiempo real.",
+      en: "React frontend and design of the real-time data layer.",
+    },
+    problem: {
+      es: "El equipo tomaba decisiones con datos de días atrás. Faltaba una vista única y actualizada.",
+      en: "The team made decisions with days-old data. A single, up-to-date view was missing.",
+    },
+    stack: ["React", "Node.js", "Tailwind", "PostgreSQL"],
+    category: "app",
+    featured: true,
+    status: "active",
+    year: 2024,
+    gradient: "from-[#3fb950] to-[#58a6ff]",
+    logo: "📊",
+    links: {
+      demo: undefined, // TODO
+      repo: undefined, // TODO
+    },
+  },
+  {
+    id: "3",
+    slug: "contentgen-ai",
+    name: "ContentGen AI", // TODO: proyecto real
+    tagline: {
+      es: "Generador de contenido con IA",
+      en: "AI-powered content generator",
+    },
+    description: {
+      es: "Herramienta que genera borradores de artículos y descripciones optimizadas usando modelos de lenguaje.",
+      en: "Tool that generates article drafts and optimized copy using language models.",
+    },
+    role: {
+      es: "Integración con la API del modelo, diseño de prompts y la interfaz de edición.",
+      en: "Model API integration, prompt design and the editing interface.",
+    },
+    problem: {
+      es: "Producir contenido consistente tomaba horas. La idea fue acelerar el primer borrador sin perder control editorial.",
+      en: "Producing consistent content took hours. The goal was to speed up the first draft without losing editorial control.",
+    },
+    stack: ["TypeScript", "React", "Node.js", "OpenAI"],
+    category: "ai",
+    featured: true,
+    status: "in_progress",
+    year: 2025,
+    gradient: "from-[#1f6feb] to-[#3fb950]",
+    logo: "🤖",
+    links: {
+      demo: undefined, // TODO
+      repo: undefined, // TODO
+    },
+  },
+  {
+    id: "4",
+    slug: "pluginforge",
+    name: "PluginForge", // TODO: proyecto real
+    tagline: {
+      es: "Suite de plugins para WordPress",
+      en: "WordPress plugin suite",
+    },
+    description: {
+      es: "Colección de plugins de SEO, caché y seguridad pensados para acelerar sitios WordPress.",
+      en: "Collection of SEO, cache and security plugins built to speed up WordPress sites.",
+    },
+    role: {
+      es: "Desarrollo de los plugins y del sistema de actualizaciones.",
+      en: "Plugin development and the update system.",
+    },
+    stack: ["PHP", "WordPress", "JavaScript"],
+    category: "plugin",
+    featured: false,
+    status: "production",
+    year: 2023,
+    gradient: "from-[#8957e5] to-[#d2a8ff]",
+    logo: "🔌",
+    links: {
+      demo: undefined, // TODO
+      repo: undefined, // TODO
+    },
+  },
+  {
+    id: "5",
+    slug: "smartapi-engine",
+    name: "SmartAPI Engine", // TODO: proyecto real
+    tagline: {
+      es: "API REST con documentación automática",
+      en: "REST API with auto-generated docs",
+    },
+    description: {
+      es: "Motor de API con documentación generada, validación de esquemas y autenticación por tokens.",
+      en: "API engine with generated docs, schema validation and token authentication.",
+    },
+    role: {
+      es: "Arquitectura de la API y automatización de la documentación.",
+      en: "API architecture and documentation automation.",
+    },
+    stack: ["Node.js", "Express", "MongoDB", "TypeScript"],
+    category: "api",
+    featured: false,
+    status: "active",
+    year: 2024,
+    gradient: "from-[#58a6ff] to-[#8957e5]",
+    logo: "⚡",
+    links: {
+      demo: undefined, // TODO
+      repo: undefined, // TODO
+    },
+  },
+  {
+    id: "6",
+    slug: "nutriapp",
+    name: "NutriApp", // TODO: proyecto real
+    tagline: {
+      es: "Gestión para nutricionistas",
+      en: "Platform for nutritionists",
+    },
+    description: {
+      es: "App para gestionar pacientes, planes alimenticios y consultas en un solo lugar.",
+      en: "App to manage patients, meal plans and appointments in one place.",
+    },
+    role: {
+      es: "Producto full stack, desde el modelo de datos hasta la experiencia móvil.",
+      en: "Full stack product, from the data model to the mobile experience.",
+    },
+    stack: ["Next.js", "Tailwind", "Supabase"],
+    category: "app",
+    featured: false,
+    status: "in_progress",
+    year: 2025,
+    gradient: "from-[#3fb950] to-[#238636]",
+    logo: "🥗",
+    links: {
+      demo: undefined, // TODO
+      repo: undefined, // TODO
+    },
+  },
 ];
+
+/** Todas las tecnologías presentes, útiles para construir filtros. */
+export function getAllStacks(items: Project[] = projects): string[] {
+  const set = new Set<string>();
+  for (const project of items) {
+    for (const tech of project.stack) {
+      set.add(tech);
+    }
+  }
+  return Array.from(set).sort((a, b) => a.localeCompare(b));
+}

@@ -9,7 +9,8 @@ const defaultSettings: Settings = {
     contact_email: 'contacto@denilson.me',
     social_links: {
         github: 'https://github.com/DenilsonLab',
-        linkedin: 'https://www.linkedin.com/in/denilsn/',
+        linkedin: 'https://www.linkedin.com/in/denilson-arguello/',
+        discord: 'https://discord.com/users/711334090246324324',
     }
 }
 

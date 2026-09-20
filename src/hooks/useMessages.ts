@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react'
 import type { ContactMessage } from '@/types/database.types'
 
+// TODO(denilson): STUB. sendMessage NO envía a ningún backend todavía;
+// sólo simula un delay y hace console.log. Cablear a un servicio real
+// (Formspree, Resend, o API propia) antes de confiar en el formulario.
 export function useMessages() {
     const [error, setError] = useState<string | null>(null)
     const [messages] = useState<ContactMessage[]>([])

@@ -5,7 +5,8 @@ import App from "./App";
 import BlogPost from "./components/BlogPost";
 import BlogList from "./components/BlogList";
 import NotFound from "./components/NotFound";
-import ResourcesPage from "./components/ResourcesPage";
+import ProjectsPage from "./components/ProjectsPage";
+import { Toaster } from "./components/ui/sonner";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -13,11 +14,12 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/proyectos" element={<ProjectsPage />} />
         {/* <Route path="/blog" element={<BlogList />} /> */}
         {/* <Route path="/blog/:slug" element={<BlogPost />} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Toaster />
     </BrowserRouter>
   </HelmetProvider>
 );

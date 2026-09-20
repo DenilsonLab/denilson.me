@@ -1,87 +1,125 @@
-import { useCallback, useState } from 'react'
-import type { Project } from '@/types/database.types'
+import { useEffect, useMemo, useRef, useState } from "react";
+import { projects as staticProjects, type Project } from "@/data/projects";
 
-const defaultProjects: Project[] = [
-  {
-    id: '1',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    name: 'VisiomixAI PageBuilder',
-    tagline: 'Constructor de páginas IA para WordPress',
-    description: 'Plugin de WordPress completo que utiliza IA para generar estructuras de bloques Gutenberg y diseños personalizados.',
-    image: 'https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&q=80&w=800',
-    tags: ['React', 'WordPress', 'PHP', 'AI'],
-    github_url: null,
-    demo_url: 'https://visiomix.ai',
-    language: 'TypeScript',
-    language_color: '#3178c6',
-    stars: 12,
-    forks: 2,
-    views: '1.2k',
-    logo: null,
-    gradient: 'from-blue-500 to-cyan-500',
-    status: 'completed',
-    is_ai: true
-  },
-  {
-    id: '2',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    name: 'NutriApp',
-    tagline: 'Plataforma para nutricionistas',
-    description: 'Gestor de pacientes, recetas y consultas para profesionales de la nutrición.',
-    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800',
-    tags: ['Next.js', 'Tailwind', 'Supabase'],
-    github_url: null,
-    demo_url: null,
-    language: 'TypeScript',
-    language_color: '#3178c6',
-    stars: 5,
-    forks: 0,
-    views: '300',
-    logo: null,
-    gradient: 'from-green-500 to-emerald-500',
-    status: 'in_progress',
-    is_ai: false
+/**
+ * Métricas reales traídas desde la API pública de GitHub para los
+ * proyectos que declaran `githubRepo`.
+ */
+export interface GithubStats {
+  stars: number;
+  forks: number;
+  language: string | null;
+}
+
+/** Proyecto enriquecido con métricas de GitHub (si están disponibles). */
+export interface EnrichedProject extends Project {
+  github?: GithubStats;
+}
+
+// Cache en memoria por sesión: evita re-fetchear al navegar home <-> /proyectos.
+const statsCache = new Map<string, GithubStats>();
+
+async function fetchGithubStats(repo: string): Promise<GithubStats | null> {
+  if (statsCache.has(repo)) {
+    return statsCache.get(repo) ?? null;
   }
-]
 
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repo}`, {
+      headers: { Accept: "application/vnd.github+json" },
+    });
+
+    // Rate limit (403), repo inexistente (404) u otro error -> fallback silencioso.
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = (await response.json()) as {
+      stargazers_count?: number;
+      forks_count?: number;
+      language?: string | null;
+    };
+
+    const stats: GithubStats = {
+      stars: data.stargazers_count ?? 0,
+      forks: data.forks_count ?? 0,
+      language: data.language ?? null,
+    };
+
+    statsCache.set(repo, stats);
+    return stats;
+  } catch {
+    // Sin red / CORS / abort -> se ignora y se usa solo la data estática.
+    return null;
+  }
+}
+
+/**
+ * Devuelve los proyectos (data estática curada) y, de forma progresiva,
+ * los enriquece con métricas de GitHub para los que tengan `githubRepo`.
+ *
+ * La UI puede renderizar de inmediato con `projects`; `isEnriching` indica
+ * que aún llegan métricas. Nunca bloquea el render ni lanza errores hacia arriba.
+ */
 export function useProjects() {
-  const [projects] = useState<Project[]>(defaultProjects)
-  const [isLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [enrichedById, setEnrichedById] = useState<Record<string, GithubStats>>({});
+  const [isEnriching, setIsEnriching] = useState(false);
+  const isMounted = useRef(true);
 
-  const uploadImage = async (file: File) => {
-    console.log('Mock upload image', file.name)
-    return URL.createObjectURL(file)
-  }
+  useEffect(() => {
+    isMounted.current = true;
 
-  const createProject = async (project: any) => {
-    console.log('Mock create project', project)
-    return project
-  }
+    const reposToFetch = staticProjects.filter((project) => Boolean(project.githubRepo));
 
-  const updateProject = async (project: any) => {
-    console.log('Mock update project', project)
-    return project
-  }
+    if (reposToFetch.length === 0) {
+      return;
+    }
 
-  const deleteProject = async (id: string) => {
-    console.log('Mock delete project', id)
-  }
+    setIsEnriching(true);
 
-  const clearError = useCallback(() => {
-    setError(null)
-  }, [])
+    Promise.all(
+      reposToFetch.map(async (project) => {
+        const stats = await fetchGithubStats(project.githubRepo as string);
+        return stats ? ([project.id, stats] as const) : null;
+      }),
+    )
+      .then((results) => {
+        if (!isMounted.current) {
+          return;
+        }
 
-  return {
-    projects,
-    isLoading,
-    error,
-    clearError,
-    createProject,
-    updateProject,
-    deleteProject,
-    uploadImage
-  }
+        const next: Record<string, GithubStats> = {};
+        for (const entry of results) {
+          if (entry) {
+            next[entry[0]] = entry[1];
+          }
+        }
+        setEnrichedById(next);
+      })
+      .finally(() => {
+        if (isMounted.current) {
+          setIsEnriching(false);
+        }
+      });
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  const projects = useMemo<EnrichedProject[]>(
+    () =>
+      staticProjects.map((project) => ({
+        ...project,
+        github: enrichedById[project.id],
+      })),
+    [enrichedById],
+  );
+
+  const featured = useMemo(
+    () => projects.filter((project) => project.featured),
+    [projects],
+  );
+
+  return { projects, featured, isEnriching };
 }
