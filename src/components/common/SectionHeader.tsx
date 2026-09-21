@@ -46,7 +46,7 @@ export function SectionHeader({
         </div>
       )}
 
-      <h2 className="text-3xl md:text-4xl text-fg-default tracking-tight">{title}</h2>
+      <h2 className="text-fg-default">{title}</h2>
 
       {subtitle && (
         <p className={`text-fg-muted ${isCenter ? "mx-auto max-w-2xl" : "max-w-2xl"}`}>

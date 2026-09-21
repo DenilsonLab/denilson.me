@@ -35,7 +35,6 @@
                 "class-variance-authority": "^0.7.1",
                 "clsx": "^1.2.1",
                 "cmdk": "^1.1.1",
-                "easymde": "^2.20.0",
                 "embla-carousel-react": "^8.6.0",
                 "framer-motion": "^12.23.22",
                 "input-otp": "^1.4.2",
@@ -50,8 +49,6 @@
                 "react-markdown": "^10.1.0",
                 "react-resizable-panels": "^2.1.7",
                 "react-router-dom": "^7.9.4",
-                "react-simplemde-editor": "^5.2.0",
-                "recharts": "^2.15.2",
                 "sonner": "^2.0.3",
                 "tailwind-merge": "^1.14.0",
                 "tailwindcss": "^4.1.17",
@@ -71,12 +68,14 @@
                 "eslint-plugin-react": "^7.37.5",
                 "eslint-plugin-react-hooks": "^7.0.0",
                 "prettier": "^3.6.2",
+                "sharp": "^0.35.4",
                 "typescript": "^5.9.3",
                 "vite": "6.3.5"
         },
         "scripts": {
                 "dev": "vite",
                 "build": "vite build",
-                "typecheck": "tsc --noEmit"
+                "typecheck": "tsc --noEmit",
+                "convert:images": "node scripts/convert-images.mjs"
         }
 }

@@ -84,7 +84,7 @@ export function ContactSection({ t }: ContactSectionProps) {
           <Phone className="w-6 h-6 text-[#ffa657]" />
         </div>
         <div>
-          <h3 className="text-gray-100">{label}</h3>
+          <h3 className="text-base font-medium text-gray-100">{label}</h3>
           <p className="text-gray-400">
             {revealed ? (
               <a href={`tel:${p1}${p2}${p3}${p4}`} className="hover:text-[#ffa657] transition-colors">
@@ -111,7 +111,7 @@ export function ContactSection({ t }: ContactSectionProps) {
           transition={{ duration: 0.5 }}
           className="text-center space-y-4 mb-16"
         >
-          <h2 className="text-gray-100">{t.contact.title}</h2>
+          <h2 className="text-fg-default">{t.contact.title}</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">{t.contact.subtitle}</p>
         </motion.div>
 
@@ -140,7 +140,7 @@ export function ContactSection({ t }: ContactSectionProps) {
                       <Mail className="w-6 h-6 text-[#3fb950]" />
                     </div>
                     <div>
-                      <h3 className="text-gray-100">{t.contact.info.email}</h3>
+                      <h3 className="text-base font-medium text-gray-100">{t.contact.info.email}</h3>
                       <p className="text-gray-400">hello@denilson.me</p>
                     </div>
                   </motion.div>
@@ -153,7 +153,7 @@ export function ContactSection({ t }: ContactSectionProps) {
                       <MessageCircle className="w-6 h-6 text-[#58a6ff]" />
                     </div>
                     <div>
-                      <h3 className="text-gray-100">{t.contact.info.discord}</h3>
+                      <h3 className="text-base font-medium text-gray-100">{t.contact.info.discord}</h3>
                       <p className="text-gray-400"><a href="https://discord.com/users/711334090246324324" target="_blank">@denils.n</a></p>
                     </div>
                   </motion.div>
@@ -166,7 +166,7 @@ export function ContactSection({ t }: ContactSectionProps) {
                       <MapPin className="w-6 h-6 text-[#d2a8ff]" />
                     </div>
                     <div>
-                      <h3 className="text-gray-100">{t.contact.info.location}</h3>
+                      <h3 className="text-base font-medium text-gray-100">{t.contact.info.location}</h3>
                       <p className="text-gray-400">{t.sidebar.locationValue}</p>
                     </div>
                   </motion.div>

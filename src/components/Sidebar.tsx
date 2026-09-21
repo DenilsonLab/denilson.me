@@ -5,9 +5,10 @@ import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { motion } from "framer-motion";
 import { Language, translations } from "../utils/translations";
-import ProfilePicture from '../assets/profile.png';
+import ProfilePicture from '../assets/profile.webp';
 import { useSettings } from "../hooks/useSettings";
 import { useLocation, useNavigate } from "react-router-dom";
+import { projects } from "../data/projects";
 
 interface SidebarProps {
   activeSection: string;
@@ -29,6 +30,8 @@ export function Sidebar({
   onClose
 }: SidebarProps) {
   const { settings } = useSettings();
+  // Contador de proyectos derivado de los datos reales, para no mostrar cifras infladas.
+  const projectCount = projects.length;
   const githubUrl = settings?.social_links?.github || "https://github.com/DenilsonLab";
   const linkedinUrl = settings?.social_links?.linkedin || "https://www.linkedin.com/in/denilsn/";
   const discordUrl = settings?.social_links?.discord || "https://discord.com/users/711334090246324324";
@@ -37,6 +40,7 @@ export function Sidebar({
     { id: "inicio", label: t.nav.home, icon: Home },
     { id: "servicios", label: t.nav.services, icon: Briefcase },
     { id: "habilidades", label: t.nav.skills, icon: Code2 },
+    // { id: "experiencia", label: t.nav.experience, icon: BriefcaseIcon },
     { id: "proyectos", label: t.nav.projects, icon: FolderGit2 },
     // { id: "blog", label: t.nav.blog, icon: BookOpen },
     { id: "contacto", label: t.nav.contact, icon: Mail },
@@ -228,8 +232,8 @@ export function Sidebar({
                 <FolderGit2 className="w-3.5 h-3.5" />
                 <p className="text-xs">{t.sidebar.projects}</p>
               </div>
-              <p className="text-lg text-gray-100">27+</p>
-              <p className="text-xs text-gray-500">completados</p>
+              <p className="text-lg text-gray-100">{projectCount}</p>
+              <p className="text-xs text-gray-500">{language === 'es' ? 'publicados' : 'shipped'}</p>
             </motion.div>
           </div>
 

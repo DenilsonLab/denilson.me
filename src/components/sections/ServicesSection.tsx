@@ -57,7 +57,7 @@ export function ServicesSection({ t }: ServicesSectionProps) {
           transition={{ duration: 0.5 }}
           className="text-center space-y-4 mb-16"
         >
-          <h2 className="text-gray-100">
+          <h2 className="text-fg-default">
             {t.services.title}
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">

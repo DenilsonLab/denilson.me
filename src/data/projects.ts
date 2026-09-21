@@ -1,6 +1,6 @@
 import type { Language } from "@/utils/translations";
-import accountyImage from "@/assets/Accounty.png";
-import invoiceGenImage from "@/assets/InvoiceGen Pro.png";
+import accountyImage from "@/assets/Accounty.webp";
+import invoiceGenImage from "@/assets/InvoiceGen Pro.webp";
 
 /**
  * Texto localizado. Usa las mismas claves que translations (es | en).

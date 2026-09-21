@@ -67,7 +67,7 @@ export function SkillsSection({ t }: SkillsSectionProps) {
           transition={{ duration: 0.5 }}
           className="text-center space-y-4 mb-16"
         >
-          <h2 className="text-gray-100">
+          <h2 className="text-fg-default">
             {t.skills.title}
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">

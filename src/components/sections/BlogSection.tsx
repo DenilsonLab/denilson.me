@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 import { translations } from "../../utils/translations";
-import ProfilePicture from '../../assets/profile.png';
+import ProfilePicture from '../../assets/profile.webp';
 import { usePosts } from "../../hooks/usePosts";
 import { Link } from "react-router-dom";
 import { BlogCard } from "../BlogCard";
@@ -31,7 +31,7 @@ export function BlogSection({ t }: BlogSectionProps) {
             <Tag className="w-4 h-4 text-[#58a6ff]" />
             <span className="text-sm text-gray-400">Artículos y Tutoriales</span>
           </div>
-          <h2 className="text-gray-100">
+          <h2 className="text-fg-default">
             {t.blog.title}
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">

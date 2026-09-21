@@ -50,7 +50,7 @@ export function HeroSection({ t }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-5xl md:text-6xl text-gray-100"
+              className="text-fg-default"
             >
               {t.hero.title} <span className="text-[#58a6ff]">{t.hero.titleHighlight}</span>
             </motion.h1>

@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sidebar } from "./Sidebar";
 import { Language, translations } from "../utils/translations";
-import ProfilePicture from '../assets/profile.png';
+import ProfilePicture from '../assets/profile.webp';
 
 interface MobileNavProps {
     activeSection: string;
