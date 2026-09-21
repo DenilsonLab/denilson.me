@@ -1,4 +1,6 @@
 import type { Language } from "@/utils/translations";
+import accountyImage from "@/assets/Accounty.png";
+import invoiceGenImage from "@/assets/InvoiceGen Pro.png";
 
 /**
  * Texto localizado. Usa las mismas claves que translations (es | en).
@@ -32,10 +34,15 @@ export interface Project {
   status: ProjectStatus;
   year: number;
   /**
-   * Par de colores/tokens para el arte de la tarjeta (sin screenshots).
-   * Se usa como `bg-gradient-to-br ${gradient}`.
+   * Par de colores/tokens para el arte de la tarjeta. Se usa como
+   * `bg-gradient-to-br ${gradient}` y como fallback si no hay `image`.
    */
   gradient: string;
+  /**
+   * Mockup/captura del proyecto. Si está, se muestra en el arte de la
+   * tarjeta y el showcase; si no, se usa el gradiente + logo.
+   */
+  image?: string;
   /** Emoji o inicial que hace de "logo" en el arte */
   logo?: string;
   links: {
@@ -50,193 +57,80 @@ export interface Project {
 }
 
 /**
- * TODO(denilson): Reemplazar estos proyectos de ejemplo por los reales.
+ * Proyectos reales. Para cada uno:
  * - Completá `links.demo` / `links.repo` con URLs verdaderas.
  * - Poné `githubRepo` como "DenilsonLab/nombre-del-repo" para que se
  *   enriquezca con stars/forks/lenguaje desde GitHub automáticamente.
- * - Ajustá `featured: true` en los 2-3 que quieras destacar en el home.
+ * - `featured: true` lo destaca en el showcase del home.
  */
 export const projects: Project[] = [
   {
-    id: "1",
-    slug: "shopflow-pro",
-    name: "ShopFlow Pro", // TODO: proyecto real
+    id: "accounty",
+    slug: "accounty",
+    name: "Accounty",
     tagline: {
-      es: "Plataforma de e-commerce a medida",
-      en: "Custom e-commerce platform",
+      es: "Finanzas del hogar con bot de Telegram",
+      en: "Household finances with a Telegram bot",
     },
     description: {
-      es: "Tienda online completa con carrito, pagos integrados y un panel de administración propio para gestionar catálogo y pedidos.",
-      en: "Full online store with cart, integrated payments and a custom admin panel to manage catalog and orders.",
+      es: "Web app para registrar gastos, armar presupuestos y administrar la economía de la casa. Su bot de Telegram carga gastos desde el chat y hasta lee facturas por foto: le sacás una foto al ticket y registra el gasto automáticamente.",
+      en: "Web app to track expenses, build budgets and manage household finances. Its Telegram bot logs expenses from chat and even reads receipts by photo: snap a picture of the ticket and it records the expense automatically.",
     },
     role: {
-      es: "Diseño e implementación full stack, desde la base de datos hasta la interfaz de administración.",
-      en: "Full stack design and implementation, from the database to the admin interface.",
+      es: "Producto full stack: la web app, la lógica de presupuestos y el bot de Telegram con lectura de facturas por foto (OCR).",
+      en: "Full stack product: the web app, the budgeting logic and the Telegram bot with photo-based receipt reading (OCR).",
     },
     problem: {
-      es: "El cliente vendía por redes sociales y perdía pedidos. Necesitaba un flujo de compra confiable y un panel simple.",
-      en: "The client was selling through social media and losing orders. They needed a reliable checkout flow and a simple panel.",
+      es: "Registrar gastos en el momento es tedioso y por eso no se hace. El bot permite anotarlos en segundos desde el chat, o directamente sacándole una foto a la factura.",
+      en: "Logging expenses on the spot is tedious, so it rarely happens. The bot lets you record them in seconds from chat, or just by taking a photo of the receipt.",
     },
-    stack: ["PHP", "WordPress", "WooCommerce", "MySQL"],
-    category: "web",
-    featured: true,
-    status: "production",
-    year: 2024,
-    gradient: "from-[#8957e5] to-[#1f6feb]",
-    logo: "🛒",
-    links: {
-      demo: undefined, // TODO
-      repo: undefined, // TODO
-    },
-    // githubRepo: "DenilsonLab/shopflow-pro", // TODO: descomentar cuando exista
-  },
-  {
-    id: "2",
-    slug: "adminpro-dashboard",
-    name: "AdminPro Dashboard", // TODO: proyecto real
-    tagline: {
-      es: "Panel administrativo en tiempo real",
-      en: "Real-time admin dashboard",
-    },
-    description: {
-      es: "Dashboard con métricas en vivo, gestión de usuarios y autenticación segura, construido para escalar.",
-      en: "Dashboard with live metrics, user management and secure authentication, built to scale.",
-    },
-    role: {
-      es: "Frontend en React y diseño de la capa de datos con actualización en tiempo real.",
-      en: "React frontend and design of the real-time data layer.",
-    },
-    problem: {
-      es: "El equipo tomaba decisiones con datos de días atrás. Faltaba una vista única y actualizada.",
-      en: "The team made decisions with days-old data. A single, up-to-date view was missing.",
-    },
-    stack: ["React", "Node.js", "Tailwind", "PostgreSQL"],
+    stack: ["React", "Node.js", "Telegram Bot API", "OCR", "PostgreSQL"],
     category: "app",
-    featured: true,
-    status: "active",
-    year: 2024,
-    gradient: "from-[#3fb950] to-[#58a6ff]",
-    logo: "📊",
-    links: {
-      demo: undefined, // TODO
-      repo: undefined, // TODO
-    },
-  },
-  {
-    id: "3",
-    slug: "contentgen-ai",
-    name: "ContentGen AI", // TODO: proyecto real
-    tagline: {
-      es: "Generador de contenido con IA",
-      en: "AI-powered content generator",
-    },
-    description: {
-      es: "Herramienta que genera borradores de artículos y descripciones optimizadas usando modelos de lenguaje.",
-      en: "Tool that generates article drafts and optimized copy using language models.",
-    },
-    role: {
-      es: "Integración con la API del modelo, diseño de prompts y la interfaz de edición.",
-      en: "Model API integration, prompt design and the editing interface.",
-    },
-    problem: {
-      es: "Producir contenido consistente tomaba horas. La idea fue acelerar el primer borrador sin perder control editorial.",
-      en: "Producing consistent content took hours. The goal was to speed up the first draft without losing editorial control.",
-    },
-    stack: ["TypeScript", "React", "Node.js", "OpenAI"],
-    category: "ai",
     featured: true,
     status: "in_progress",
     year: 2025,
-    gradient: "from-[#1f6feb] to-[#3fb950]",
-    logo: "🤖",
+    gradient: "from-[#238636] to-[#1f6feb]",
+    image: accountyImage,
+    logo: "💰",
     links: {
-      demo: undefined, // TODO
-      repo: undefined, // TODO
+      demo: undefined, // TODO: URL de la demo
+      repo: undefined, // TODO: URL del repo
     },
+    // githubRepo: "DenilsonLab/accounty", // TODO: descomentar cuando el repo sea público
   },
   {
-    id: "4",
-    slug: "pluginforge",
-    name: "PluginForge", // TODO: proyecto real
+    id: "invoicegen-pro",
+    slug: "invoicegen-pro",
+    name: "InvoiceGen Pro",
     tagline: {
-      es: "Suite de plugins para WordPress",
-      en: "WordPress plugin suite",
+      es: "Generador de facturas con drag and drop",
+      en: "Drag-and-drop invoice generator",
     },
     description: {
-      es: "Colección de plugins de SEO, caché y seguridad pensados para acelerar sitios WordPress.",
-      en: "Collection of SEO, cache and security plugins built to speed up WordPress sites.",
+      es: "Web app para generar facturas personalizables con drag and drop, imágenes y datos recurrentes que se guardan una vez y no hay que volver a llenar en cada factura.",
+      en: "Web app to build customizable invoices with drag and drop, images and recurring data saved once so you never re-enter it per invoice.",
     },
     role: {
-      es: "Desarrollo de los plugins y del sistema de actualizaciones.",
-      en: "Plugin development and the update system.",
+      es: "Diseño e implementación del editor drag and drop y del sistema de plantillas con datos reutilizables.",
+      en: "Design and implementation of the drag-and-drop editor and the template system with reusable data.",
     },
-    stack: ["PHP", "WordPress", "JavaScript"],
-    category: "plugin",
-    featured: false,
-    status: "production",
-    year: 2023,
-    gradient: "from-[#8957e5] to-[#d2a8ff]",
-    logo: "🔌",
-    links: {
-      demo: undefined, // TODO
-      repo: undefined, // TODO
+    problem: {
+      es: "Rehacer los mismos datos en cada factura hace perder tiempo. La idea fue guardar lo recurrente y dejar el diseño totalmente editable.",
+      en: "Re-entering the same data on every invoice wastes time. The goal was to store the recurring parts and keep the layout fully editable.",
     },
-  },
-  {
-    id: "5",
-    slug: "smartapi-engine",
-    name: "SmartAPI Engine", // TODO: proyecto real
-    tagline: {
-      es: "API REST con documentación automática",
-      en: "REST API with auto-generated docs",
-    },
-    description: {
-      es: "Motor de API con documentación generada, validación de esquemas y autenticación por tokens.",
-      en: "API engine with generated docs, schema validation and token authentication.",
-    },
-    role: {
-      es: "Arquitectura de la API y automatización de la documentación.",
-      en: "API architecture and documentation automation.",
-    },
-    stack: ["Node.js", "Express", "MongoDB", "TypeScript"],
-    category: "api",
-    featured: false,
-    status: "active",
-    year: 2024,
-    gradient: "from-[#58a6ff] to-[#8957e5]",
-    logo: "⚡",
-    links: {
-      demo: undefined, // TODO
-      repo: undefined, // TODO
-    },
-  },
-  {
-    id: "6",
-    slug: "nutriapp",
-    name: "NutriApp", // TODO: proyecto real
-    tagline: {
-      es: "Gestión para nutricionistas",
-      en: "Platform for nutritionists",
-    },
-    description: {
-      es: "App para gestionar pacientes, planes alimenticios y consultas en un solo lugar.",
-      en: "App to manage patients, meal plans and appointments in one place.",
-    },
-    role: {
-      es: "Producto full stack, desde el modelo de datos hasta la experiencia móvil.",
-      en: "Full stack product, from the data model to the mobile experience.",
-    },
-    stack: ["Next.js", "Tailwind", "Supabase"],
+    stack: ["React", "TypeScript", "Tailwind", "Node.js"],
     category: "app",
-    featured: false,
-    status: "in_progress",
+    featured: true,
+    status: "active",
     year: 2025,
-    gradient: "from-[#3fb950] to-[#238636]",
-    logo: "🥗",
+    gradient: "from-[#8957e5] to-[#58a6ff]",
+    image: invoiceGenImage,
+    logo: "🧾",
     links: {
-      demo: undefined, // TODO
-      repo: undefined, // TODO
+      demo: undefined, // TODO: URL de la demo
+      repo: undefined, // TODO: URL del repo
     },
+    // githubRepo: "DenilsonLab/invoicegen-pro", // TODO: descomentar cuando el repo sea público
   },
 ];
 

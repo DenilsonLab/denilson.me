@@ -22,13 +22,26 @@ export function ProjectShowcaseRow({ project, language, t, index }: ProjectShowc
 
   const art = (
     <div className="relative overflow-hidden rounded-2xl border border-border">
-      <div className={`aspect-[16/10] w-full bg-gradient-to-br ${project.gradient}`} />
-      {/* Oscurecido para legibilidad */}
-      <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent" />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-        {project.logo && <span className="text-6xl drop-shadow-lg">{project.logo}</span>}
-        <span className="font-mono text-lg text-white/90 drop-shadow">{project.name}</span>
-      </div>
+      {project.image ? (
+        <>
+          <img
+            src={project.image}
+            alt={`${project.name} — ${project.tagline[language]}`}
+            loading="lazy"
+            className="aspect-[16/10] w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-canvas/40 via-transparent to-transparent" />
+        </>
+      ) : (
+        <>
+          <div className={`aspect-[16/10] w-full bg-gradient-to-br ${project.gradient}`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            {project.logo && <span className="text-6xl drop-shadow-lg">{project.logo}</span>}
+            <span className="font-mono text-lg text-white/90 drop-shadow">{project.name}</span>
+          </div>
+        </>
+      )}
     </div>
   );
 

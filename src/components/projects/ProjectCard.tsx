@@ -25,14 +25,25 @@ export function ProjectCard({ project, language, t, index = 0 }: ProjectCardProp
     >
       <Card className="group h-full overflow-hidden border-border bg-surface transition-colors hover:border-border-strong">
         {/* Arte compacto */}
-        <div className="relative">
-          <div className={`aspect-[16/9] w-full bg-gradient-to-br ${project.gradient}`} />
-          <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
-          {project.logo && (
-            <span className="absolute bottom-3 right-4 text-3xl drop-shadow-lg">
-              {project.logo}
-            </span>
+        <div className="relative overflow-hidden">
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={`${project.name} — ${project.tagline[language]}`}
+              loading="lazy"
+              className="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <>
+              <div className={`aspect-[16/9] w-full bg-gradient-to-br ${project.gradient}`} />
+              {project.logo && (
+                <span className="absolute bottom-3 right-4 text-3xl drop-shadow-lg">
+                  {project.logo}
+                </span>
+              )}
+            </>
           )}
+          <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
           <div className="absolute left-4 top-4">
             <StatusBadge status={project.status} t={t} />
           </div>
