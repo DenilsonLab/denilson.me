@@ -14,8 +14,9 @@ interface ProjectsSectionProps {
 }
 
 /**
- * Sección del home: showcase editorial de destacados + una grilla breve
- * del resto, con CTA a la página completa /proyectos.
+ * Sección del home: showcase editorial de destacados. Cuando hay más
+ * proyectos que los destacados, agrega una grilla breve del resto y un
+ * CTA a la página completa. Con pocos proyectos, se mantiene compacta.
  */
 export function ProjectsSection({ t, language }: ProjectsSectionProps) {
   const { projects, featured } = useProjects();
@@ -23,9 +24,18 @@ export function ProjectsSection({ t, language }: ProjectsSectionProps) {
   // El resto (no destacados), limitado a 3 para no alargar el home.
   const secondary = projects.filter((project) => !project.featured).slice(0, 3);
 
+  // Sólo mostramos grilla y CTA a /proyectos si hay más que los destacados.
+  const hasMore = projects.length > featured.length;
+
   return (
-    <section id="proyectos" className="bg-canvas px-8 py-20">
-      <div className="container mx-auto max-w-6xl space-y-16">
+    <section id="proyectos" className="relative overflow-hidden bg-canvas px-8 py-24">
+      {/* Fondo editorial: brillo de marca sutil que diferencia esta sección */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute left-1/4 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-[#1f6feb]/10 blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 h-96 w-96 translate-x-1/2 rounded-full bg-[#238636]/10 blur-[120px]" />
+      </div>
+
+      <div className="container relative z-10 mx-auto max-w-6xl space-y-20">
         <SectionHeader
           badge={t.projects.badge}
           badgeIcon={Sparkles}
@@ -33,8 +43,8 @@ export function ProjectsSection({ t, language }: ProjectsSectionProps) {
           subtitle={t.projects.subtitle}
         />
 
-        {/* Destacados: filas editoriales alternadas */}
-        <div className="space-y-16 lg:space-y-24">
+        {/* Destacados: filas editoriales alternadas y numeradas */}
+        <div className="space-y-20 lg:space-y-28">
           {featured.map((project, index) => (
             <ProjectShowcaseRow
               key={project.id}
@@ -42,12 +52,13 @@ export function ProjectsSection({ t, language }: ProjectsSectionProps) {
               language={language}
               t={t.projects}
               index={index}
+              total={featured.length}
             />
           ))}
         </div>
 
-        {/* Grilla breve del resto */}
-        {secondary.length > 0 && (
+        {/* Grilla breve del resto (sólo si hay más proyectos) */}
+        {hasMore && secondary.length > 0 && (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {secondary.map((project, index) => (
               <ProjectCard
@@ -61,25 +72,27 @@ export function ProjectsSection({ t, language }: ProjectsSectionProps) {
           </div>
         )}
 
-        {/* CTA a la página completa */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="text-center"
-        >
-          <Button
-            asChild
-            size="lg"
-            className="group bg-primary text-white shadow-lg shadow-[#238636]/20 hover:bg-primary-hover"
+        {/* CTA a la página completa (sólo si hay más para ver) */}
+        {hasMore && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-center"
           >
-            <Link to="/proyectos">
-              {t.projects.viewAll}
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </motion.div>
+            <Button
+              asChild
+              size="lg"
+              className="group bg-primary text-white shadow-lg shadow-[#238636]/20 hover:bg-primary-hover"
+            >
+              <Link to="/proyectos">
+                {t.projects.viewAll}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
