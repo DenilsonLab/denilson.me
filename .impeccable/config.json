@@ -17,6 +17,13 @@
         "files": ["src/concepts/concepts.css"],
         "createdAt": "2026-10-16T20:57:31.592Z",
         "reason": "Agent: Georgia belongs to the existing noindex workshop concept preview, separate from production typography"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "files": ["src/concepts/concepts.css"],
+        "createdAt": "2026-10-16T20:59:49.960Z",
+        "reason": "Agent: DESIGN.md lines 123-144 explicitly defines Space Grotesk as the instrument font; preserve the established type system during the contrast fix"
       }
     ]
   }
