@@ -59,6 +59,17 @@ test('concepts render in both languages with no console or accessibility errors'
       path.startsWith('/en') ? 'en' : 'es',
     );
     await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex,follow');
+    if (path.endsWith('/orbita') || path.endsWith('/orbit')) {
+      const panel = page.locator('.signal-panel-content');
+      // Audit the entrance's first frame too: fading text reduced its contrast in CI.
+      await panel.evaluate((element) => {
+        for (const animation of element.getAnimations()) {
+          animation.pause();
+          animation.currentTime = 0;
+        }
+      });
+      await expect(panel).toHaveCSS('opacity', '1');
+    }
     expect(
       (await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze())
         .violations,

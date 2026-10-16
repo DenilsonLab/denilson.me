@@ -1,3 +1,23 @@
 {
-  "buildPath": "code"
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": ["src/concepts/concepts.css"],
+        "createdAt": "2026-10-16T20:57:31.509Z",
+        "reason": "Agent: existing noindex concept previews retain their experimental visual treatment; this fix only restores readable signal transitions"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "georgia",
+        "files": ["src/concepts/concepts.css"],
+        "createdAt": "2026-10-16T20:57:31.592Z",
+        "reason": "Agent: Georgia belongs to the existing noindex workshop concept preview, separate from production typography"
+      }
+    ]
+  }
 }
