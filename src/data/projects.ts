@@ -1,146 +1,138 @@
-import type { Language } from "@/utils/translations";
-import accountyImage from "@/assets/Accounty.webp";
-import invoiceGenImage from "@/assets/InvoiceGen Pro.webp";
-
-/**
- * Texto localizado. Usa las mismas claves que translations (es | en).
- */
+import type { Language } from '@/utils/translations';
 export type LocalizedText = Record<Language, string>;
-
-export type ProjectCategory = "web" | "plugin" | "app" | "ai" | "api";
-
-export type ProjectStatus = "production" | "active" | "in_progress" | "archived";
-
 export interface Project {
-  /** Identificador estable */
   id: string;
-  /** Slug para rutas y anclas (ej. /proyectos#slug o futuros detalles) */
   slug: string;
-  /** Nombre del proyecto (marca, no se traduce) */
   name: string;
-  /** Frase corta que lo describe */
-  tagline: LocalizedText;
-  /** Descripción de 1-2 líneas */
-  description: LocalizedText;
-  /** Qué hiciste vos en el proyecto */
-  role: LocalizedText;
-  /** Opcional: el problema que resolvía (se muestra en el showcase) */
-  problem?: LocalizedText;
-  /** Tecnologías, usadas también para los filtros */
-  stack: string[];
-  category: ProjectCategory;
-  /** Entra al showcase editorial del home */
+  visibility: 'public' | 'private';
   featured: boolean;
-  status: ProjectStatus;
-  year: number;
-  /**
-   * Par de colores/tokens para el arte de la tarjeta. Se usa como
-   * `bg-gradient-to-br ${gradient}` y como fallback si no hay `image`.
-   */
-  gradient: string;
-  /**
-   * Mockup/captura del proyecto. Si está, se muestra en el arte de la
-   * tarjeta y el showcase; si no, se usa el gradiente + logo.
-   */
+  tagline: LocalizedText;
+  description: LocalizedText;
+  role: LocalizedText;
+  problem?: LocalizedText;
+  solution?: LocalizedText;
+  stack: string[];
   image?: string;
-  /** Emoji o inicial que hace de "logo" en el arte */
-  logo?: string;
-  links: {
-    demo?: string;
-    repo?: string;
-  };
-  /**
-   * "owner/name" del repo en GitHub. Si está presente, useProjects
-   * enriquece la tarjeta con stars/forks/lenguaje reales vía la API.
-   */
-  githubRepo?: string;
+  url?: string;
 }
-
-/**
- * Proyectos reales. Para cada uno:
- * - Completá `links.demo` / `links.repo` con URLs verdaderas.
- * - Poné `githubRepo` como "DenilsonLab/nombre-del-repo" para que se
- *   enriquezca con stars/forks/lenguaje desde GitHub automáticamente.
- * - `featured: true` lo destaca en el showcase del home.
- */
 export const projects: Project[] = [
   {
-    id: "accounty",
-    slug: "accounty",
-    name: "Accounty",
+    id: 'karuplan',
+    slug: 'karuplan',
+    name: 'Karuplan',
+    visibility: 'public',
+    featured: true,
     tagline: {
-      es: "Finanzas del hogar con bot de Telegram",
-      en: "Household finances with a Telegram bot",
+      es: 'Recetas y menús para organizar la semana',
+      en: 'Recipes and menus to organize your week',
     },
     description: {
-      es: "Web app para registrar gastos, armar presupuestos y administrar la economía de la casa. Su bot de Telegram carga gastos desde el chat y hasta lee facturas por foto: le sacás una foto al ticket y registra el gasto automáticamente.",
-      en: "Web app to track expenses, build budgets and manage household finances. Its Telegram bot logs expenses from chat and even reads receipts by photo: snap a picture of the ticket and it records the expense automatically.",
+      es: 'Plataforma para descubrir recetas, organizar menús semanales y preparar una lista de compras. Incluye un recetario de la comunidad y opciones para planificar las comidas.',
+      en: 'A platform for discovering recipes, organizing weekly menus and preparing a shopping list, with community recipes and meal-planning options.',
     },
     role: {
-      es: "Producto full stack: la web app, la lógica de presupuestos y el bot de Telegram con lectura de facturas por foto (OCR).",
-      en: "Full stack product: the web app, the budgeting logic and the Telegram bot with photo-based receipt reading (OCR).",
+      es: 'Desarrollé el proyecto completo: una web de recetas y planificación de comidas con una dimensión social para la comunidad.',
+      en: 'I developed the entire project: a recipe and meal-planning website with a social dimension for its community.',
     },
     problem: {
-      es: "Registrar gastos en el momento es tedioso y por eso no se hace. El bot permite anotarlos en segundos desde el chat, o directamente sacándole una foto a la factura.",
-      en: "Logging expenses on the spot is tedious, so it rarely happens. The bot lets you record them in seconds from chat, or just by taking a photo of the receipt.",
+      es: 'Decidir qué cocinar y reunir los ingredientes puede convertirse en una tarea repetitiva.',
+      en: 'Deciding what to cook and gathering ingredients can become a repetitive task.',
     },
-    stack: ["React", "Node.js", "Telegram Bot API", "OCR", "PostgreSQL"],
-    category: "app",
-    featured: true,
-    status: "production",
-    year: 2025,
-    gradient: "from-[#238636] to-[#1f6feb]",
-    image: accountyImage,
-    logo: "💰",
-    links: {
-      demo: undefined, // TODO: URL de la demo
-      repo: undefined, // TODO: URL del repo
+    solution: {
+      es: 'Un recetario conectado con menús semanales y una lista de compras descargable.',
+      en: 'A recipe collection connected to weekly menus and a downloadable shopping list.',
     },
-    // githubRepo: "DenilsonLab/accounty", // TODO: descomentar cuando el repo sea público
+    stack: ['React', 'Tailwind CSS', 'Cloudinary'],
+    image: '/projects/karuplan-cover.webp',
+    url: 'https://www.karuplan.com/',
   },
   {
-    id: "invoicegen-pro",
-    slug: "invoicegen-pro",
-    name: "InvoiceGen Pro",
+    id: 'qlinnt',
+    slug: 'qlinnt',
+    name: 'Qlinnt',
+    visibility: 'public',
+    featured: true,
     tagline: {
-      es: "Generador de facturas con drag and drop",
-      en: "Drag-and-drop invoice generator",
+      es: 'Revisión de calidad para sitios creados con IA',
+      en: 'Quality checks for AI-built websites',
     },
     description: {
-      es: "Web app para generar facturas personalizables con drag and drop, imágenes y datos recurrentes que se guardan una vez y no hay que volver a llenar en cada factura.",
-      en: "Web app to build customizable invoices with drag and drop, images and recurring data saved once so you never re-enter it per invoice.",
+      es: 'Herramienta que revisa páginas públicas para identificar problemas técnicos, de SEO, accesibilidad y rendimiento. Organiza hallazgos y ofrece indicaciones para corregirlos con herramientas de desarrollo asistido por IA.',
+      en: 'A tool that reviews public pages for technical, SEO, accessibility and performance issues. It organizes findings and provides guidance for addressing them with AI coding tools.',
     },
     role: {
-      es: "Diseño e implementación del editor drag and drop y del sistema de plantillas con datos reutilizables.",
-      en: "Design and implementation of the drag-and-drop editor and the template system with reusable data.",
+      es: 'Desarrollé el proyecto completo, incluida la experiencia de revisión y el escaneo de páginas web.',
+      en: 'I developed the entire project, including the review experience and website scanning.',
     },
     problem: {
-      es: "Rehacer los mismos datos en cada factura hace perder tiempo. La idea fue guardar lo recurrente y dejar el diseño totalmente editable.",
-      en: "Re-entering the same data on every invoice wastes time. The goal was to store the recurring parts and keep the layout fully editable.",
+      es: 'Un sitio puede verse terminado y conservar errores técnicos que pasan desapercibidos.',
+      en: 'A website can look finished while retaining overlooked technical issues.',
     },
-    stack: ["React", "TypeScript", "Tailwind", "Node.js"],
-    category: "app",
+    solution: {
+      es: 'Un diagnóstico que distingue problemas detectados de comprobaciones no verificadas y ayuda a priorizar las correcciones.',
+      en: 'A diagnosis that distinguishes detected issues from unverified checks and helps prioritize fixes.',
+    },
+    stack: ['React', 'Tailwind CSS'],
+    image: '/projects/qlinnt-cover.webp',
+    url: 'https://qlinnt.com/',
+  },
+  {
+    id: 'accounty',
+    slug: 'accounty',
+    name: 'Accounty',
+    visibility: 'private',
     featured: true,
-    status: "production",
-    year: 2025,
-    gradient: "from-[#8957e5] to-[#58a6ff]",
-    image: invoiceGenImage,
-    logo: "🧾",
-    links: {
-      demo: undefined, // TODO: URL de la demo
-      repo: undefined, // TODO: URL del repo
+    tagline: {
+      es: 'Finanzas del hogar desde la web y Telegram',
+      en: 'Household finances on the web and Telegram',
     },
-    // githubRepo: "DenilsonLab/invoicegen-pro", // TODO: descomentar cuando el repo sea público
+    description: {
+      es: 'Herramienta personal para organizar gastos y presupuestos del hogar. Un bot de Telegram permite registrar gastos y leer comprobantes por foto.',
+      en: 'A personal tool to organize household expenses and budgets. A Telegram bot records expenses and reads receipt photos.',
+    },
+    role: {
+      es: 'Desarrollo de la aplicación, la lógica de presupuestos y el bot con lectura de comprobantes.',
+      en: 'Development of the application, budgeting logic and receipt-reading bot.',
+    },
+    problem: {
+      es: 'Anotar cada gasto manualmente añade fricción al seguimiento de las finanzas del hogar.',
+      en: 'Manually entering every expense adds friction to tracking household finances.',
+    },
+    solution: {
+      es: 'Unificar el registro y los presupuestos, con entradas desde Telegram y fotografías de comprobantes.',
+      en: 'Bring expense tracking and budgets together, with input through Telegram and receipt photos.',
+    },
+    stack: ['React', 'Node.js', 'Telegram Bot API', 'OCR', 'PostgreSQL'],
+  },
+  {
+    id: 'invoicegen-pro',
+    slug: 'invoicegen-pro',
+    name: 'InvoiceGen Pro',
+    visibility: 'private',
+    featured: false,
+    tagline: {
+      es: 'Plantillas de facturas que se adaptan a cada trabajo',
+      en: 'Invoice templates tailored to each job',
+    },
+    description: {
+      es: 'Herramienta de uso personal para preparar facturas con un editor visual, imágenes y datos recurrentes reutilizables.',
+      en: 'A personal tool for preparing invoices with a visual editor, images and reusable recurring information.',
+    },
+    role: {
+      es: 'Diseño e implementación del editor visual y del sistema de plantillas con datos reutilizables.',
+      en: 'Design and implementation of the visual editor and reusable-data template system.',
+    },
+    problem: {
+      es: 'Repetir datos y rehacer el diseño de cada factura consume tiempo.',
+      en: 'Repeating information and rebuilding invoice layouts takes time.',
+    },
+    solution: {
+      es: 'Un editor de arrastrar y soltar con plantillas y campos que se guardan para el siguiente documento.',
+      en: 'A drag-and-drop editor with templates and fields saved for the next document.',
+    },
+    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Node.js'],
   },
 ];
-
-/** Todas las tecnologías presentes, útiles para construir filtros. */
 export function getAllStacks(items: Project[] = projects): string[] {
-  const set = new Set<string>();
-  for (const project of items) {
-    for (const tech of project.stack) {
-      set.add(tech);
-    }
-  }
-  return Array.from(set).sort((a, b) => a.localeCompare(b));
+  return [...new Set(items.flatMap((project) => project.stack))].sort();
 }

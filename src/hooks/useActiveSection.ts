@@ -1,35 +1,30 @@
-import { useState, useEffect } from 'react';
-
-export function useActiveSection(sectionIds: string[], offset = 200) {
-    const [activeSection, setActiveSection] = useState(sectionIds[0]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY + offset;
-
-            for (const sectionId of sectionIds) {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    const { offsetTop, offsetHeight } = element;
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                        setActiveSection(sectionId);
-                        break;
-                    }
-                }
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [sectionIds, offset]);
-
-    const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-            setActiveSection(sectionId);
-        }
-    };
-
-    return { activeSection, scrollToSection };
+import { useEffect, useState } from 'react';
+export const sectionIds = [
+  'inicio',
+  'proyectos',
+  'servicios',
+  'habilidades',
+  'sobre-mi',
+  'contacto',
+] as const;
+export function useActiveSection(enabled: boolean) {
+  const [activeSection, setActiveSection] = useState<string>('inicio');
+  useEffect(() => {
+    if (!enabled) return;
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => node !== null);
+    const visible = new Map<string, boolean>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) visible.set(entry.target.id, entry.isIntersecting);
+        const current = elements.find((element) => visible.get(element.id));
+        if (current) setActiveSection(current.id);
+      },
+      { rootMargin: '-12% 0px -45% 0px' },
+    );
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, [enabled]);
+  return activeSection;
 }

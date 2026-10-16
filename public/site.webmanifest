@@ -1,0 +1,21 @@
+{
+  "name": "Denilson Arguello · Desarrollo web",
+  "short_name": "Denilson",
+  "start_url": "/",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#edf1f5",
+  "background_color": "#edf1f5",
+  "display": "browser"
+}

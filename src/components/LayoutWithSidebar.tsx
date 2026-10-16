@@ -1,50 +1,41 @@
-import { Sidebar } from "./Sidebar";
-import { MobileNav } from "./MobileNav";
-import { Language, translations } from "../utils/translations";
-
-interface LayoutWithSidebarProps {
-    children: React.ReactNode;
-    activeSection?: string;
-    onNavigate?: (section: string) => void;
-    language?: Language;
-    onLanguageToggle?: () => void;
-}
-
-export function LayoutWithSidebar({
-    children,
-    activeSection = "blog",
-    onNavigate = () => { },
-    language = "es",
-    onLanguageToggle = () => { }
-}: LayoutWithSidebarProps) {
-    const t = translations[language];
-
-    return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-[#0d1117]">
-            {/* Mobile Navigation - Only visible on mobile */}
-            <MobileNav
-                activeSection={activeSection}
-                onNavigate={onNavigate}
-                language={language}
-                onLanguageToggle={onLanguageToggle}
-                t={t}
-            />
-
-            {/* Sidebar - Desktop logic handles visibility via CSS */}
-            <div className="hidden md:block sticky top-0 h-screen shrink-0">
-                <Sidebar
-                    activeSection={activeSection}
-                    onNavigate={onNavigate}
-                    language={language}
-                    onLanguageToggle={onLanguageToggle}
-                    t={t}
-                />
-            </div>
-
-            {/* Main Content */}
-            <main className="flex-1 min-w-0">
-                {children}
-            </main>
+import type { ReactNode } from 'react';
+import { Sidebar } from './Sidebar';
+import { MobileNav } from './MobileNav';
+import { useActiveSection } from '@/hooks/useActiveSection';
+import type { Page } from '@/utils/routes';
+import { translations } from '@/utils/translations';
+import { site } from '@/config/site';
+export function LayoutWithSidebar({ children, page }: { children: ReactNode; page: Page }) {
+  const observed = useActiveSection(page.kind === 'home');
+  const active =
+    page.kind === 'home'
+      ? observed
+      : page.kind === 'profile'
+        ? 'sobre-mi'
+        : page.kind === 'notFound'
+          ? ''
+          : 'proyectos';
+  const t = translations[page.language];
+  return (
+    <>
+      <a className="skip-link" href="#contenido">
+        {t.skip}
+      </a>
+      <div className="site-layout">
+        <Sidebar page={page} activeSection={active} />
+        <div className="site-body">
+          <MobileNav page={page} activeSection={active} />
+          <main id="contenido" tabIndex={-1}>
+            {children}
+          </main>
+          <footer className="site-footer">
+            <p>
+              {site.name} · {t.footer}
+            </p>
+            <a href={'mailto:' + site.email}>{site.email}</a>
+          </footer>
         </div>
-    );
+      </div>
+    </>
+  );
 }

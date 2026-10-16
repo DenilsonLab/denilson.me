@@ -1,25 +1,22 @@
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
-import App from "./App";
-import BlogPost from "./components/BlogPost";
-import BlogList from "./components/BlogList";
-import NotFound from "./components/NotFound";
-import ProjectsPage from "./components/ProjectsPage";
-import { Toaster } from "./components/ui/sonner";
-import "./index.css";
-
-createRoot(document.getElementById("root")!).render(
-  <HelmetProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/proyectos" element={<ProjectsPage />} />
-        {/* <Route path="/blog" element={<BlogList />} /> */}
-        {/* <Route path="/blog/:slug" element={<BlogPost />} /> */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Toaster />
-    </BrowserRouter>
-  </HelmetProvider>
-);
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { getPage } from './utils/routes';
+import './index.css';
+const root = document.getElementById('root');
+if (!root) throw new Error('Missing application root');
+const page = getPage(window.location.pathname);
+document.documentElement.lang = page.language;
+async function start() {
+  const content =
+    page.kind === 'concept'
+      ? await import('./concepts/ConceptSite').then(({ ConceptSite }) => (
+          <ConceptSite page={page} />
+        ))
+      : page.kind === 'home'
+        ? await import('./HomeSite').then(({ HomeSite }) => <HomeSite page={page} />)
+        : await import('./Site').then(({ Site }) => <Site path={window.location.pathname} />);
+  const app = <ErrorBoundary language={page.language}>{content}</ErrorBoundary>;
+  if (root!.dataset.prerendered === 'true') hydrateRoot(root!, app);
+  else createRoot(root!).render(app);
+}
+void start();
